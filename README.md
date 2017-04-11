@@ -5,9 +5,12 @@ npm module to communicate with vizio smart cast tvs
 ## Code Example
 
 ```JavaScript
-smartcast.wake();
-smartcast.pair('192.168.0.101');
-// ... more to come
+let smartCast = require('vizio-smart-cast');
+smartCast.powerMode('192.168.0.101').then((data) => {
+    console.log(data);
+});
+// example output:
+// {"STATUS": {"RESULT": "SUCCESS", "DETAIL": "Success"}, "ITEMS": [{"CNAME": "power_mode", "TYPE": "T_VALUE_V1", "NAME": "Power Mode", "VALUE": 0}], "URI": "/state/device/power_mode"}
 ```
 
 ## Installation
