@@ -1,0 +1,23 @@
+{
+  "name": "vizio-smart-cast",
+  "version": "1.0.0",
+  "description": "module to communicate with vizio smart cast tvs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heathbar/vizio-smart-cast.git"
+  },
+  "author": "Heath Paddock <hp@heathpaddock.com> (https://heathpaddock.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heathbar/vizio-smart-cast/issues"
+  },
+  "homepage": "https://github.com/heathbar/vizio-smart-cast#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
