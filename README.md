@@ -25,6 +25,7 @@ npm install vizio-smart-cast --save
 
 ### `new smartcast(ipAddress, [deviceName, [deviceId]])`
 Instatiates a new smart cast device
+
 #### Arguments
 1. `ipAddress` *(string)*: IP address of the smart cast device
 1. `[deviceName]` *(string='vizio-smart-cast-node-app')*: Name of the connecting device/app
