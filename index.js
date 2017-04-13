@@ -4,14 +4,20 @@ let request = require('request-promise-native'),
     PROTO = 'https://',
     PORT = 9000;
 
-let sendRequest = (method, url, data) => {
+let sendRequest = (method, url, authKey, data) => {
     let req = {
         url: url,
         json: true,
         rejectUnauthorized: false,
         body: data
     };
-    
+
+    if (authKey) {
+        req.headers = {
+            'AUTH': authKey
+        };
+    }
+
     return request[method](req);
 }
 
@@ -55,7 +61,7 @@ module.exports = function smartcast(ip, deviceName, deviceId) {
                 "DEVICE_NAME": deviceName,
                 "DEVICE_ID": deviceId
             };
-            return sendRequest('put', host + '/pairing/start', data).then((data) => {
+            return sendRequest('put', host + '/pairing/start', null, data).then((data) => {
                 if (data && data.STATUS.RESULT === 'SUCCESS') {
                     PAIRING_REQ_TOKEN = data.ITEM.PAIRING_REQ_TOKEN;
                 }
@@ -75,12 +81,16 @@ module.exports = function smartcast(ip, deviceName, deviceId) {
                 "RESPONSE_VALUE": pin,
                 "PAIRING_REQ_TOKEN": PAIRING_REQ_TOKEN
             };
-            return sendRequest('put', host + '/pairing/pair', data).then((data) => {
+            return sendRequest('put', host + '/pairing/pair', null, data).then((data) => {
                 if (data && data.STATUS.RESULT === 'SUCCESS') {
                     AUTH_KEY = data.ITEM.AUTH_TOKEN;
                 }
                 return data;
             });
+        },
+
+        useAuthToken: (key) => {
+            AUTH_KEY = key;
         },
 
         /**
@@ -93,12 +103,12 @@ module.exports = function smartcast(ip, deviceName, deviceId) {
         }
     };
 
-    this.inputs = {
+    this.input = {
         list: () => {
-
+            return sendRequest('get', host + '/menu_native/dynamic/tv_settings/devices/name_input', AUTH_KEY);
         },
         current: () => {
-
+            return sendRequest('get', host + '/menu_native/dynamic/tv_settings/devices/current_input', AUTH_KEY);
         }
     }
 };
