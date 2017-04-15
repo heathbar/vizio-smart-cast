@@ -14,7 +14,7 @@ describe('#smart-cast-pairing-tests', function() {
                     RESULT: 'SUCCESS'
                 },
                 ITEM: {
-                    PAIRING_REQ_TOKEN: 'foobar'
+                    PAIRING_REQ_TOKEN: 'foobarbaz'
                 }
             };
         sinon.stub(request, 'put').returns(Promise.resolve(mockData));
@@ -26,14 +26,14 @@ describe('#smart-cast-pairing-tests', function() {
         request.put.restore();
     });
 
-    it('initiate should pass through data from the api', function(done) {
+    it('initiate should return data from the api', function(done) {
         let tv = new smartcast('0.0.0.0'),
             mockData = {
                 STATUS: {
                     RESULT: 'SUCCESS'
                 },
                 ITEM: {
-                    PAIRING_REQ_TOKEN: 'foobar'
+                    PAIRING_REQ_TOKEN: 'foobarbiz'
                 }
             };
 
@@ -46,6 +46,50 @@ describe('#smart-cast-pairing-tests', function() {
 
         expect(request.put.called).to.be.true;
         request.put.restore();
+    });
+
+    it('intiate should use default device name and id', function(done) {
+        let tv = new smartcast('0.0.0.0'),
+            mockData = {
+                STATUS: {
+                    RESULT: 'SUCCESS'
+                },
+                ITEM: {
+                    PAIRING_REQ_TOKEN: 'foobarbuz'
+                }
+            };
+
+        sinon.stub(request, 'put').returns(Promise.resolve(mockData));
+        
+        tv.pairing.initiate().then((data) => {
+            expect(request.put.firstCall.args[0].body.DEVICE_NAME).to.equal('vizio-smart-cast-node-app');
+            expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal('vizio-smart-cast-node-app');
+            request.put.restore();
+            done();
+        });
+    });
+
+    it('intiate should use specified device name and id', function(done) {
+        let tv = new smartcast('0.0.0.0'),
+            deviceName = 'custom-device-name',
+            deviceId = 'custom-device-id',
+            mockData = {
+                STATUS: {
+                    RESULT: 'SUCCESS'
+                },
+                ITEM: {
+                    PAIRING_REQ_TOKEN: 'foobarbuz'
+                }
+            };
+
+        sinon.stub(request, 'put').returns(Promise.resolve(mockData));
+        
+        tv.pairing.initiate(deviceName, deviceId).then((data) => {
+            expect(request.put.firstCall.args[0].body.DEVICE_NAME).to.equal(deviceName);
+            expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal(deviceId);
+            request.put.restore();
+            done();
+        });
     });
 
     it('pair should call api', function() {
@@ -70,7 +114,7 @@ describe('#smart-cast-pairing-tests', function() {
         request.put.restore();
     });
 
-    it('pair should pass through data from the api', function(done) {
+    it('pair should return data from the api', function(done) {
         let tv = new smartcast('0.0.0.0'),
             mockData = {
                 "STATUS": {
@@ -95,7 +139,17 @@ describe('#smart-cast-pairing-tests', function() {
 
     it('pair should use default device id', function(done) {
         let tv = new smartcast('0.0.0.0'),
-            mockData = {
+            mockInitiateResponse = {
+                "STATUS": {
+                    "RESULT": "SUCCESS",
+                    "DETAIL": "Success"
+                },
+                "ITEM": {
+                    "CHALLENGE_TYPE": 1,
+                    "PAIRING_REQ_TOKEN": 948527
+                }
+            },
+            mockPairResponse = {
                 "STATUS": {
                     "RESULT": "SUCCESS",
                     "DETAIL": "Success"
@@ -105,18 +159,36 @@ describe('#smart-cast-pairing-tests', function() {
                 }
             };
 
-        sinon.stub(request, 'put').returns(Promise.resolve(mockData));
-        
-        tv.pairing.pair('1234').then((data) => {
-            expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal('vizio-smart-cast-node-app');
+        sinon.stub(request, 'put').returns(Promise.resolve(mockInitiateResponse));
+
+        tv.pairing.initiate().then((data) => {
+
             request.put.restore();
-            done();
+            sinon.stub(request, 'put').returns(Promise.resolve(mockPairResponse));
+
+            tv.pairing.pair('9876').then((data) => {
+
+                expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal('vizio-smart-cast-node-app');
+                request.put.restore();
+                done();
+            });
         });
     });
 
-    it('pair should use specified device id', function(done) {
-        let tv = new smartcast('0.0.0.0', '', 'custom-device-id'),
-            mockData = {
+    it('pair should use the specified device id', function(done) {
+        let tv = new smartcast('0.0.0.0'),
+            deviceId = 'custom-device-id',
+            mockInitiateResponse = {
+                "STATUS": {
+                    "RESULT": "SUCCESS",
+                    "DETAIL": "Success"
+                },
+                "ITEM": {
+                    "CHALLENGE_TYPE": 1,
+                    "PAIRING_REQ_TOKEN": 948527
+                }
+            },
+            mockPairResponse = {
                 "STATUS": {
                     "RESULT": "SUCCESS",
                     "DETAIL": "Success"
@@ -126,12 +198,18 @@ describe('#smart-cast-pairing-tests', function() {
                 }
             };
 
-        sinon.stub(request, 'put').returns(Promise.resolve(mockData));
-        
-        tv.pairing.pair('1234').then((data) => {
-            expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal('custom-device-id');
+        sinon.stub(request, 'put').returns(Promise.resolve(mockInitiateResponse));
+
+        tv.pairing.initiate('deviceName', deviceId).then((data) => {
+
             request.put.restore();
-            done();
+            sinon.stub(request, 'put').returns(Promise.resolve(mockPairResponse));
+        
+            tv.pairing.pair('9876').then((data) => {
+                expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal(deviceId);
+                request.put.restore();
+                done();
+            });
         });
     });
 
@@ -158,7 +236,7 @@ describe('#smart-cast-pairing-tests', function() {
 
     it('pair should use the pairing request token from initialize', function(done) {
         let tv = new smartcast('0.0.0.0'),
-            mockInitializeResponse = {
+            mockInitiateResponse = {
                 "STATUS": {
                     "RESULT": "SUCCESS",
                     "DETAIL": "Success"
@@ -178,15 +256,14 @@ describe('#smart-cast-pairing-tests', function() {
                 }
             };
 
-        sinon.stub(request, 'put').returns(Promise.resolve(mockInitializeResponse));
+        sinon.stub(request, 'put').returns(Promise.resolve(mockInitiateResponse));
 
         tv.pairing.initiate().then((data) => {
 
-            // request.put.restore();
             sinon.stub(request, 'put').returns(Promise.resolve(mockPairResponse));
             
             tv.pairing.pair('1234').then((data) => {
-                expect(request.put.firstCall.args[0].body.PAIRING_REQ_TOKEN).to.equal(mockInitializeResponse.ITEM.PAIRING_REQ_TOKEN);
+                expect(request.put.firstCall.args[0].body.PAIRING_REQ_TOKEN).to.equal(mockInitiateResponse.ITEM.PAIRING_REQ_TOKEN);
                 request.put.restore();
                 done();
             });

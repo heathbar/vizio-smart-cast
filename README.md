@@ -1,6 +1,7 @@
 ## Synopsis
 
 npm module to communicate with vizio smart cast tvs
+*NOTE:* This library is still in alpha and under rapid development. You'll likely find breaking changes between versions for now.
 
 ## Code Example
 
@@ -23,13 +24,12 @@ npm install vizio-smart-cast --save
 
 ## API Reference
 
-### `new smartcast(ipAddress, [deviceName, [deviceId]])`
+### `new smartcast(ipAddress, [authToken])`
 Instatiates a new smart cast device
 
 #### Arguments
 1. `ipAddress` *(string)*: IP address of the smart cast device
-1. `[deviceName]` *(string='vizio-smart-cast-node-app')*: Name of the connecting device/app
-1. `[deviceId]` *(string='vizio-smart-cast-node-app')*: ID of the connecting device/app
+1. `authToken` *(string)*: Authorization token from a previous session. Auth tokens are returned from `pairing.pair(...)`
 
 #### Returns
 *(`smartcast`)*: A new smartcast instance
@@ -58,8 +58,12 @@ tv.power.currentMode().then((data) => {
 // {"STATUS": {"RESULT": "SUCCESS", "DETAIL": "Success"}, "ITEMS": [{"CNAME": "power_mode", "TYPE": "T_VALUE_V1", "NAME": "Power Mode", "VALUE": 0}], "URI": "/state/device/power_mode"}
 ```
 
-### `pairing.initialize()`
-Initiate pairing with a smart cast device. If successful, a pin will be displayed on the screen of the smart cast device.
+### `pairing.initialize([deviceName, [deviceId]])`
+Initiate pairing with a smart cast device. If successful, a pin will be displayed on the screen of the smart cast device. Device name and ID do not appear to do anything useful, but they are included here for completeness.
+
+#### Arguments
+1. `[deviceName]` *(string='vizio-smart-cast-node-app')*: Name of the connecting device/app
+1. `[deviceId]` *(string='vizio-smart-cast-node-app')*: ID of the connecting device/app
 
 #### Returns
 *(`Promise`)*: A containing the response from the smart cast device
@@ -138,9 +142,7 @@ Fetch current tv input.
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
-
-tv.pairing.useAuthToken('xxxxxxxxxx');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 // make a call to an authenticated method
 tv.input.current().then((data) => {
@@ -169,9 +171,7 @@ Fetch the list of all inputs
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
-
-tv.pairing.useAuthToken('xxxxxxxxxx');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 // make a call to an authenticated method
 tv.input.list().then((data) => {
@@ -283,9 +283,8 @@ Turn volume down one step
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.volume.down();
 ```
 
@@ -298,9 +297,8 @@ Turn volume up one step
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.volume.up();
 ```
 
@@ -313,9 +311,8 @@ Mute the volume
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.volume.mute();
 ```
 
@@ -328,9 +325,8 @@ Unmute the volume
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.volume.unmute();
 ```
 
@@ -343,9 +339,8 @@ Toggle muting of the volume
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.volume.toggleMute();
 ```
 
@@ -358,9 +353,8 @@ Select the next input
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.input.cycle();
 ```
 
@@ -373,9 +367,8 @@ Move down one channel
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.channel.down();
 ```
 
@@ -388,9 +381,8 @@ Move up one channel
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.channel.up();
 ```
 
@@ -403,9 +395,8 @@ Move to the previous channel
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.channel.previous();
 ```
 
@@ -419,9 +410,8 @@ Turn on the device.
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.power.on();
 ```
 
@@ -434,9 +424,8 @@ Turn off the device
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.power.off();
 ```
 
@@ -450,9 +439,8 @@ Toggle power to the device.
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.101');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
 tv.control.power.toggle();
 ```
 
