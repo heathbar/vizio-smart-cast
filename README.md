@@ -112,6 +112,7 @@ tv.pairing.initiate().then((response) => {
 
 ### `pairing.useAuthToken(token)`
 Skip the pairing process and use the specified token instead. On first run, a call to `pairing.pair(...)` is required to obtain an auth token. On successive runs, use this method to skip the pairing process.
+*NOTE:* the authorization token can also be specified in the constructor. Either way, the libarary remembers it for the remainder of the smartcast instance.
 
 #### Arguments
 1. `token` *(string)*: The token retrieved from a successful `pairing.pair(...)` call
@@ -124,7 +125,7 @@ Skip the pairing process and use the specified token instead. On first run, a ca
 let smartcast = require('../vizio-smart-cast');
 let tv = new smartcast('192.168.0.101');
 
-tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.pairing.useAuthToken('xAuthTokenx');
 
 // make a call to an authenticated method
 tv.input.current().then((data) => {
