@@ -1,6 +1,7 @@
 ## Synopsis
 
 npm module to communicate with vizio smart cast tvs
+
 *NOTE:* This library is still in alpha and under rapid development. You'll likely find breaking changes between versions for now.
 
 ## Code Example
@@ -72,7 +73,7 @@ Initiate pairing with a smart cast device. If successful, a pin will be displaye
 see next method for example
 
 ### `pairing.pair(pin)`
-Provide a user-entered pin to the smart cast device. The smart cast device will respond with an auth token that can be used indefinitely. The vizio-smart-cast library will automatically re-use the token for the remainder of the session. For future sessions, call `pairing.useAuthToken(...)` with the token to skip the pairing process.
+Provide a user-entered pin to the smart cast device. The smart cast device will respond with an auth token that can be used indefinitely. The vizio-smart-cast library will automatically re-use the token for the remainder of the session. For future sessions, specify the authToken in the constructor or call `pairing.useAuthToken(...)` with the token to skip the pairing process.
 
 #### Arguments
 1. `pin` *(string)*: The pin displayed on the smart cast device after a successful `initialize()` call
@@ -112,6 +113,7 @@ tv.pairing.initiate().then((response) => {
 
 ### `pairing.useAuthToken(token)`
 Skip the pairing process and use the specified token instead. On first run, a call to `pairing.pair(...)` is required to obtain an auth token. On successive runs, use this method to skip the pairing process.
+
 *NOTE:* the authorization token can also be specified in the constructor. Either way, the libarary remembers it for the remainder of the smartcast instance.
 
 #### Arguments
