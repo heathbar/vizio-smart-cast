@@ -21,6 +21,19 @@ let sendRequest = (method, url, authKey, data) => {
     return request[method](req);
 }
 
+let keyData = (codeset, code, action) => {
+    if (!action) {
+        action = 'KEYPRESS';
+    }
+    return {
+        "KEYLIST": [{
+            "CODESET": codeset,
+            "CODE": code,
+            "ACTION": action
+        }]
+    };
+}
+
 /**
  * @param {string} ip IP address of the smartcast device
  * @param {string=} deviceName name of the calling device
@@ -110,5 +123,64 @@ module.exports = function smartcast(ip, deviceName, deviceId) {
         current: () => {
             return sendRequest('get', host + '/menu_native/dynamic/tv_settings/devices/current_input', AUTH_KEY);
         }
-    }
+    };
+    
+    this.control = {
+        volume: {
+            down: () => {
+                let data = keyData(5, 0);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+            up: () => {
+                let data = keyData(5, 1);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+            unmute: () => {
+                let data = keyData(5, 2);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+            mute: () => {
+                let data = keyData(5, 3);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+            toggleMute: () => {
+                let data = keyData(5, 4);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+        },
+        input: {
+            cycle: () => {
+                let data = keyData(7, 1);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            }
+        },
+        channel: {
+            down: () => {
+                let data = keyData(8, 0);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+            up: () => {
+                let data = keyData(8, 1);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+            previous: () => {
+                let data = keyData(8, 2);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            }
+        },
+        power: {
+            off: () => {
+                let data = keyData(11, 0);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+            on: () => {
+                let data = keyData(11, 1);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            },
+            toggle: () => {
+                let data = keyData(11, 2);
+                return sendRequest('put', host + '/key_command', AUTH_KEY, data);
+            }
+        }
+    };
 };

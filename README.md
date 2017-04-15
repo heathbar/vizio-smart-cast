@@ -80,7 +80,7 @@ Provide a user-entered pin to the smart cast device. The smart cast device will 
 ```js
 let smartcast = require('vizio-smart-cast');
 let readline = require('readline'); // user input via cmd line
-let tv = new smartcast('192.168.0.102');
+let tv = new smartcast('192.168.0.101');
 
 // configure cmd line input
 const rl = readline.createInterface({
@@ -118,9 +118,8 @@ Skip the pairing process and use the specified token instead. On first run, a ca
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.103');
+let tv = new smartcast('192.168.0.101');
 
-// set auth token manually instead of the cumbersome pairing process
 tv.pairing.useAuthToken('xxxxxxxxxx');
 
 // make a call to an authenticated method
@@ -139,9 +138,8 @@ Fetch current tv input.
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.103');
+let tv = new smartcast('192.168.0.101');
 
-// set auth token manually instead of the cumbersome pairing process
 tv.pairing.useAuthToken('xxxxxxxxxx');
 
 // make a call to an authenticated method
@@ -171,9 +169,8 @@ Fetch the list of all inputs
 #### Example
 ```js
 let smartcast = require('../vizio-smart-cast');
-let tv = new smartcast('192.168.0.103');
+let tv = new smartcast('192.168.0.101');
 
-// set auth token manually instead of the cumbersome pairing process
 tv.pairing.useAuthToken('xxxxxxxxxx');
 
 // make a call to an authenticated method
@@ -277,6 +274,188 @@ tv.input.list().then((data) => {
 // };
 ```
 
+### `control.volume.down()`
+Turn volume down one step
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.volume.down();
+```
+
+### `control.volume.up()`
+Turn volume up one step
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.volume.up();
+```
+
+### `control.volume.mute()`
+Mute the volume
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.volume.mute();
+```
+
+### `control.volume.unmute()`
+Unmute the volume
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.volume.unmute();
+```
+
+### `control.volume.toggleMute()`
+Toggle muting of the volume
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.volume.toggleMute();
+```
+
+### `control.intput.cycle()`
+Select the next input
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.input.cycle();
+```
+
+### `control.channel.down()`
+Move down one channel
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.channel.down();
+```
+
+### `control.channel.up()`
+Move up one channel
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.channel.up();
+```
+
+### `control.channel.previous()`
+Move to the previous channel
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.channel.previous();
+```
+
+### `control.power.on()`
+Turn on the device. 
+*Note:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.power.on();
+```
+
+### `control.power.off()`
+Turn off the device
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.power.off();
+```
+
+### `control.power.toggle()`
+Toggle power to the device.
+*Note:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smart cast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101');
+
+tv.pairing.useAuthToken('xxxxxxxxxx');
+tv.control.power.toggle();
+```
+
 ## Tests
 
 npm test
@@ -287,4 +466,5 @@ This was all made possible by the reference guide here: https://github.com/exiva
 ## License
 
 ISC License
-Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+Permission to use, copy, modify, and/or d*Note:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
+istribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
