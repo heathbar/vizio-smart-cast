@@ -30,7 +30,7 @@ Instatiates a new smart cast device
 
 #### Arguments
 1. `ipAddress` *(string)*: IP address of the smart cast device
-1. `authToken` *(string)*: Authorization token from a previous session. Auth tokens are returned from `pairing.pair(...)`
+1. `[authToken]` *(string)*: Authorization token from a previous session. Auth tokens are returned from `pairing.pair(...)`
 
 #### Returns
 *(`smartcast`)*: A new smartcast instance
@@ -67,7 +67,7 @@ Initiate pairing with a smart cast device. If successful, a pin will be displaye
 1. `[deviceId]` *(string='vizio-smart-cast-node-app')*: ID of the connecting device/app
 
 #### Returns
-*(`Promise`)*: A containing the response from the smart cast device
+*(`Promise`)*: A promise containing the response from the smart cast device
 
 #### Example
 see next method for example
@@ -76,7 +76,7 @@ see next method for example
 Provide a user-entered pin to the smart cast device. The smart cast device will respond with an auth token that can be used indefinitely. The vizio-smart-cast library will automatically re-use the token for the remainder of the session. For future sessions, specify the authToken in the constructor or call `pairing.useAuthToken(...)` with the token to skip the pairing process.
 
 #### Arguments
-1. `pin` *(string)*: The pin displayed on the smart cast device after a successful `initialize()` call
+1. `pin` *(string)*: The pin displayed on the smart cast device after a successful `pairing.initialize()` call
 
 #### Returns
 *(`Promise`)*: A promise containing the response from the smart cast device, including the auth token to use for future requests
