@@ -1,6 +1,6 @@
 ## Synopsis
 
-npm module to communicate with vizio smart cast tvs
+npm module to communicate with vizio smartcast tvs
 
 *NOTE:* This library is still in alpha and under rapid development. You'll likely find breaking changes between versions for now.
 
@@ -26,10 +26,10 @@ npm install vizio-smart-cast --save
 ## API Reference
 
 ### `new smartcast(ipAddress, [authToken])`
-Instatiates a new smart cast device
+Instatiates a new smartcast device
 
 #### Arguments
-1. `ipAddress` *(string)*: IP address of the smart cast device
+1. `ipAddress` *(string)*: IP address of the smartcast device
 1. `[authToken]` *(string)*: Authorization token from a previous session. Auth tokens are returned from `pairing.pair(...)`
 
 #### Returns
@@ -45,7 +45,7 @@ let tv = new smartcast('192.168.0.101');
 Fetch current tv power mode.
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -60,26 +60,26 @@ tv.power.currentMode().then((data) => {
 ```
 
 ### `pairing.initialize([deviceName, [deviceId]])`
-Initiate pairing with a smart cast device. If successful, a pin will be displayed on the screen of the smart cast device. Device name and ID do not appear to do anything useful, but they are included here for completeness.
+Initiate pairing with a smartcast device. If successful, a pin will be displayed on the screen of the smartcast device. Device name and ID do not appear to do anything useful, but they are included here for completeness.
 
 #### Arguments
 1. `[deviceName]` *(string='vizio-smart-cast-node-app')*: Name of the connecting device/app
 1. `[deviceId]` *(string='vizio-smart-cast-node-app')*: ID of the connecting device/app
 
 #### Returns
-*(`Promise`)*: A promise containing the response from the smart cast device
+*(`Promise`)*: A promise containing the response from the smartcast device
 
 #### Example
 see next method for example
 
 ### `pairing.pair(pin)`
-Provide a user-entered pin to the smart cast device. The smart cast device will respond with an auth token that can be used indefinitely. The vizio-smart-cast library will automatically re-use the token for the remainder of the session. For future sessions, specify the authToken in the constructor or call `pairing.useAuthToken(...)` with the token to skip the pairing process.
+Provide a user-entered pin to the smartcast device. The smartcast device will respond with an auth token that can be used indefinitely. The vizio-smart-cast library will automatically re-use the token for the remainder of the session. For future sessions, specify the authToken in the constructor or call `pairing.useAuthToken(...)` with the token to skip the pairing process.
 
 #### Arguments
-1. `pin` *(string)*: The pin displayed on the smart cast device after a successful `pairing.initialize()` call
+1. `pin` *(string)*: The pin displayed on the smartcast device after a successful `pairing.initialize()` call
 
 #### Returns
-*(`Promise`)*: A promise containing the response from the smart cast device, including the auth token to use for future requests
+*(`Promise`)*: A promise containing the response from the smartcast device, including the auth token to use for future requests
 
 #### Example
 ```js
@@ -93,13 +93,13 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-// Initiate a pairing request with a smart cast device
+// Initiate a pairing request with a smartcast device
 tv.pairing.initiate().then((response) => {
 
-    // prompt the user for the pin that is displayed on the smart cast device
+    // prompt the user for the pin that is displayed on the smartcast device
     rl.question('Enter PIN:', (answer) => {
         
-        // send the pin to the smart cast device to complete the pairing process
+        // send the pin to the smartcast device to complete the pairing process
         tv.pairing.pair(answer).then((response) => {
 
             // log the token to be used for future, authenticated requests
@@ -140,7 +140,7 @@ tv.input.current().then((data) => {
 Fetch current tv input.
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -169,7 +169,7 @@ tv.input.current().then((data) => {
 Fetch the list of all inputs
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -281,7 +281,7 @@ tv.input.list().then((data) => {
 Turn volume down one step
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -295,7 +295,7 @@ tv.control.volume.down();
 Turn volume up one step
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -309,7 +309,7 @@ tv.control.volume.up();
 Mute the volume
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -323,7 +323,7 @@ tv.control.volume.mute();
 Unmute the volume
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -337,7 +337,7 @@ tv.control.volume.unmute();
 Toggle muting of the volume
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -351,7 +351,7 @@ tv.control.volume.toggleMute();
 Select the next input
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -365,7 +365,7 @@ tv.control.input.cycle();
 Move down one channel
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -379,7 +379,7 @@ tv.control.channel.down();
 Move up one channel
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -393,7 +393,7 @@ tv.control.channel.up();
 Move to the previous channel
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -408,7 +408,7 @@ Turn on the device.
 *Note:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -422,7 +422,7 @@ tv.control.power.on();
 Turn off the device
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -437,7 +437,7 @@ Toggle power to the device.
 *Note:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
 
 #### Returns
-*(`Promise`)*: A promise of the http response from the smart cast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 ```js
@@ -445,6 +445,26 @@ let smartcast = require('../vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.power.toggle();
+```
+
+### `control.keyCommand(codeset, code, [action])`
+Send a key command to the smartcast device.
+
+#### Arguments
+1. `codeset` *(number)*: The codeset to send. See https://github.com/exiva/Vizio_SmartCast_API
+1. `code` *(number)*: The code to send. See https://github.com/exiva/Vizio_SmartCast_API
+1. `[action]` *(string=KEYPRESS)*: The action to send. One of: `KEYDOWN`, `KEYUP`, `KEYPRESS`.
+
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('../vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.keyCommand(5, 1, 'KEYDOWN');
 ```
 
 ## Tests

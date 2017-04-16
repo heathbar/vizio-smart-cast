@@ -11,7 +11,7 @@
     "url": "git+https://github.com/heathbar/vizio-smart-cast.git"
   },
   "author": "Heath Paddock <hp@heathpaddock.com> (https://heathpaddock.com)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/heathbar/vizio-smart-cast/issues"
   },

@@ -124,60 +124,52 @@ module.exports = function smartcast(ip, authKey) {
     };
     
     this.control = {
+        keyCommand: (codeset, code, action) => {
+            let data = keyData(codeset, code, action);
+            return sendRequest('put', host + '/key_command', _authKey, data);
+        },
         volume: {
             down: () => {
-                let data = keyData(5, 0);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(5, 0);
             },
             up: () => {
-                let data = keyData(5, 1);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(5, 1);
             },
             unmute: () => {
-                let data = keyData(5, 2);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(5, 2);
             },
             mute: () => {
-                let data = keyData(5, 3);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(5, 3);
             },
             toggleMute: () => {
-                let data = keyData(5, 4);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(5, 4);
             },
         },
         input: {
             cycle: () => {
-                let data = keyData(7, 1);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(7, 1);
             }
         },
         channel: {
             down: () => {
-                let data = keyData(8, 0);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(8, 0);
             },
             up: () => {
-                let data = keyData(8, 1);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(8, 1);
             },
             previous: () => {
-                let data = keyData(8, 2);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(8, 2);
             }
         },
         power: {
             off: () => {
-                let data = keyData(11, 0);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(11, 0);
             },
             on: () => {
-                let data = keyData(11, 1);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(11, 1);
             },
             toggle: () => {
-                let data = keyData(11, 2);
-                return sendRequest('put', host + '/key_command', _authKey, data);
+                return this.control.keyCommand(11, 2);
             }
         }
     };
