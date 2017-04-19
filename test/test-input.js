@@ -147,4 +147,76 @@ describe('#smart-cast-input-tests', function() {
         request.get.restore();
     });
 
+    it('set should call list() and current() with parameters', function(done) {
+        let tv = new smartcast('0.0.0.0'),
+            inputName = 'HDMI-1',
+            mockData = { STATUS: { RESULT: 'SUCCESS'}, ITEMS: [ { NAME: inputName, HASHVAL: '' }] }; // this is a little weird, single mock object returned for two different request.get(...) calls
+
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+        sinon.stub(request, 'put').returns(Promise.resolve(mockData));
+
+        tv.input.set(inputName).then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/name_input');
+            expect(request.get.secondCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/current_input');
+
+            request.get.restore();
+            request.put.restore();
+            done();
+        });
+    });
+
+    it('set should reject if list() or current() fails', function(done) {
+        let tv = new smartcast('0.0.0.0'),
+            inputName = 'HDMI-1',
+            inputHash = 'DEADBEEF',
+            mockData = { STATUS: { RESULT: 'ERROR' } };
+
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+
+        tv.input.set(inputName).catch(() => {
+            expect(request.get.called).to.be.true;
+            request.get.restore();
+            done();
+        });
+    });
+
+    it('set should reject if name not found', function(done) {
+        let tv = new smartcast('0.0.0.0'),
+            inputName = 'INVALID-INPUT-NAME',
+            mockData = { STATUS: { RESULT: 'SUCCESS'}, ITEMS: [ { NAME: 'HDMI-1', VALUE: { NAME: 'Blu-ray' }, HASHVAL: '' }] }; // this is a little weird, single mock object returned for two different request.get(...) calls
+
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+        sinon.stub(request, 'put').returns(Promise.resolve(mockData));
+
+        tv.input.set(inputName).catch(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.put.called).to.be.false;
+
+            request.get.restore();
+            request.put.restore();
+            done();
+        });
+    });
+
+    it('set should find input by user name if built-in name not found', function(done) {
+        let tv = new smartcast('0.0.0.0'),
+            inputName = 'USER-NAMED-INPUT',
+            mockData = { STATUS: { RESULT: 'SUCCESS'}, ITEMS: [ { NAME: 'HDMI-1', VALUE: { NAME: inputName }, HASHVAL: '' }] }; // this is a little weird, single mock object returned for two different request.get(...) calls
+
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+        sinon.stub(request, 'put').returns(Promise.resolve(mockData));
+
+        tv.input.set(inputName).then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/name_input');
+            expect(request.get.secondCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/current_input');
+
+            expect(request.put.called).to.be.true;
+
+            request.get.restore();
+            request.put.restore();
+            done();
+        });
+    });
 });

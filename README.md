@@ -124,7 +124,7 @@ Skip the pairing process and use the specified token instead. On first run, a ca
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101');
 
 tv.pairing.useAuthToken('xAuthTokenx');
@@ -144,7 +144,7 @@ Fetch current tv input.
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 // make a call to an authenticated method
@@ -173,7 +173,7 @@ Fetch the list of all inputs
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 // make a call to an authenticated method
@@ -277,6 +277,26 @@ tv.input.list().then((data) => {
 // };
 ```
 
+### `input.set(name)`
+Set the current input to the specified name. Name can be either the built-in name or the user defined name and is case insensitive.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+*NOTE*: the HTTP call may return, and thus the promise may resolve before the smartcast device has finished changing inputs. For that reason, it is possible to receive the old value from tv.input.current() if you call it immediately after the promise from tv.input.set(...) resolves.
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+// Built in names
+tv.input.set('HDMI-1');
+
+// User defined names
+tv.input.set('Kodi');
+```
+
 ### `control.volume.down()`
 Turn volume down one step
 
@@ -285,7 +305,7 @@ Turn volume down one step
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.volume.down();
@@ -299,7 +319,7 @@ Turn volume up one step
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.volume.up();
@@ -313,7 +333,7 @@ Mute the volume
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.volume.mute();
@@ -327,7 +347,7 @@ Unmute the volume
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.volume.unmute();
@@ -341,13 +361,13 @@ Toggle muting of the volume
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.volume.toggleMute();
 ```
 
-### `control.intput.cycle()`
+### `control.input.cycle()`
 Select the next input
 
 #### Returns
@@ -355,7 +375,7 @@ Select the next input
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.input.cycle();
@@ -369,7 +389,7 @@ Move down one channel
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.channel.down();
@@ -383,7 +403,7 @@ Move up one channel
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.channel.up();
@@ -397,7 +417,7 @@ Move to the previous channel
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.channel.previous();
@@ -412,7 +432,7 @@ Turn on the device.
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.power.on();
@@ -426,7 +446,7 @@ Turn off the device
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.power.off();
@@ -441,7 +461,7 @@ Toggle power to the device.
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.power.toggle();
@@ -461,7 +481,7 @@ Send a key command to the smartcast device.
 
 #### Example
 ```js
-let smartcast = require('../vizio-smart-cast');
+let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.keyCommand(5, 1, 'KEYDOWN');

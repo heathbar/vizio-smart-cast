@@ -62,8 +62,8 @@ describe('#smart-cast-pairing-tests', function() {
         sinon.stub(request, 'put').returns(Promise.resolve(mockData));
         
         tv.pairing.initiate().then((data) => {
-            expect(request.put.firstCall.args[0].body.DEVICE_NAME).to.equal('vizio-smart-cast-node-app');
-            expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal('vizio-smart-cast-node-app');
+            expect(JSON.parse(request.put.firstCall.args[0].body).DEVICE_NAME).to.equal('vizio-smart-cast-node-app');
+            expect(JSON.parse(request.put.firstCall.args[0].body).DEVICE_ID).to.equal('vizio-smart-cast-node-app');
             request.put.restore();
             done();
         });
@@ -85,8 +85,8 @@ describe('#smart-cast-pairing-tests', function() {
         sinon.stub(request, 'put').returns(Promise.resolve(mockData));
         
         tv.pairing.initiate(deviceName, deviceId).then((data) => {
-            expect(request.put.firstCall.args[0].body.DEVICE_NAME).to.equal(deviceName);
-            expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal(deviceId);
+            expect(JSON.parse(request.put.firstCall.args[0].body).DEVICE_NAME).to.equal(deviceName);
+            expect(JSON.parse(request.put.firstCall.args[0].body).DEVICE_ID).to.equal(deviceId);
             request.put.restore();
             done();
         });
@@ -168,7 +168,7 @@ describe('#smart-cast-pairing-tests', function() {
 
             tv.pairing.pair('9876').then((data) => {
 
-                expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal('vizio-smart-cast-node-app');
+                expect(JSON.parse(request.put.firstCall.args[0].body).DEVICE_ID).to.equal('vizio-smart-cast-node-app');
                 request.put.restore();
                 done();
             });
@@ -206,7 +206,7 @@ describe('#smart-cast-pairing-tests', function() {
             sinon.stub(request, 'put').returns(Promise.resolve(mockPairResponse));
         
             tv.pairing.pair('9876').then((data) => {
-                expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal(deviceId);
+                expect(JSON.parse(request.put.firstCall.args[0].body).DEVICE_ID).to.equal(deviceId);
                 request.put.restore();
                 done();
             });
@@ -228,7 +228,7 @@ describe('#smart-cast-pairing-tests', function() {
         sinon.stub(request, 'put').returns(Promise.resolve(mockData));
         
         tv.pairing.pair('1234').then((data) => {
-            expect(request.put.firstCall.args[0].body.RESPONSE_VALUE).to.equal('1234');
+            expect(JSON.parse(request.put.firstCall.args[0].body).RESPONSE_VALUE).to.equal('1234');
             request.put.restore();
             done();
         });
@@ -263,7 +263,7 @@ describe('#smart-cast-pairing-tests', function() {
             sinon.stub(request, 'put').returns(Promise.resolve(mockPairResponse));
             
             tv.pairing.pair('1234').then((data) => {
-                expect(request.put.firstCall.args[0].body.PAIRING_REQ_TOKEN).to.equal(mockInitiateResponse.ITEM.PAIRING_REQ_TOKEN);
+                expect(JSON.parse(request.put.firstCall.args[0].body).PAIRING_REQ_TOKEN).to.equal(mockInitiateResponse.ITEM.PAIRING_REQ_TOKEN);
                 request.put.restore();
                 done();
             });

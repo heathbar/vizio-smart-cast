@@ -9,7 +9,7 @@ let sendRequest = (method, url, authKey, data) => {
         url: url,
         json: true,
         rejectUnauthorized: false,
-        body: data
+        body: JSON.stringify(data)
     };
 
     if (authKey) {
@@ -26,13 +26,32 @@ let keyData = (codeset, code, action) => {
         action = 'KEYPRESS';
     }
     return {
-        "KEYLIST": [{
-            "CODESET": codeset,
-            "CODE": code,
-            "ACTION": action
+        KEYLIST: [{
+            CODESET: codeset,
+            CODE: code,
+            ACTION: action
         }]
     };
 }
+
+let findInputByName = (name, list) => {
+
+    // first search by internal name
+    for (let i = 0; i < list.ITEMS.length; i++) {
+        if (list.ITEMS[i].NAME.toLowerCase() === name.toLowerCase()) {
+            return list.ITEMS[i].NAME;
+        }
+    };
+
+    // second search by user name
+    for (let i = 0; i < list.ITEMS.length; i++) {
+        if (list.ITEMS[i].VALUE.NAME.toLowerCase() === name.toLowerCase()) {
+            return list.ITEMS[i].NAME;
+        }
+    };
+
+    return null;
+};
 
 /**
  * @param {string} ip IP address of the smartcast device
@@ -120,13 +139,40 @@ module.exports = function smartcast(ip, authKey) {
         },
         current: () => {
             return sendRequest('get', host + '/menu_native/dynamic/tv_settings/devices/current_input', _authKey);
+        },
+        set: (name) => {
+            return new Promise((resolve, reject) => {
+                Promise.all([this.input.list(), this.input.current()]).then(values => { 
+                    let inputList = values[0],
+                        currentInput = values[1],
+                        inputName = findInputByName(name, inputList);
+
+                        if (inputList.STATUS.RESULT !== 'SUCCESS' || currentInput.STATUS.RESULT !== 'SUCCESS') {
+                            reject({ list: inputList, current: currentInput });
+                            return;
+                        }
+
+                        if (!inputName) {
+                            reject('Input: ' + name + ' not found', inputList);
+                            return;
+                        }
+
+                        let data = {
+                            "REQUEST": "MODIFY",
+                            "VALUE": inputName,
+                            "HASHVAL": currentInput.ITEMS[0].HASHVAL
+                        };
+
+                        sendRequest('put', host + '/menu_native/dynamic/tv_settings/devices/current_input', _authKey, data).then(resolve).catch(reject)
+                }).catch(reject);
+            });
         }
     };
     
     this.control = {
         keyCommand: (codeset, code, action) => {
             let data = keyData(codeset, code, action);
-            return sendRequest('put', host + '/key_command', _authKey, data);
+            return sendRequest('put', host + '/key_command/', _authKey, data);
         },
         volume: {
             down: () => {
