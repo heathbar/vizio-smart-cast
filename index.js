@@ -219,4 +219,114 @@ module.exports = function smartcast(ip, authKey) {
             }
         }
     };
+
+    this.settings = {
+        picture: { 
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture', _authKey);
+            },
+            size: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_size', _authKey);
+                }
+            },
+            position: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_position', _authKey);
+                }
+            },
+            modeEdit: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_mode_edit', _authKey);
+                }
+            },
+            color: {
+                calibration: {
+                    get: () => {
+                        return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/color_calibration', _authKey);
+                    }
+                },
+                tuner: {
+                    get: () => {
+                        return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/color_calibration/color_tuner', _authKey);
+                    }
+                },
+            },
+            calibrationTests: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/color_calibration/calibration_tests', _authKey);
+                }
+            }
+        },
+        audio: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/audio', _authKey);
+            }
+        },
+        timers: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/timers', _authKey);
+            }
+        },
+        network: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/network', _authKey);
+            }
+        },
+        channels: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/channels', _authKey);
+            }
+        },
+        closedCaptions: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/closed_captions', _authKey);
+            }
+        },
+        devices: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/devices', _authKey);
+            }
+        },
+        system: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/system', _authKey);
+            },
+            information: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/system/system_information', _authKey);
+                },
+                tv: {
+                    get: () => {
+                        return sendRequest('get', host + '/menu_native/dynamic/tv_settings/system/system_information/tv_information', _authKey);
+                    }
+                },
+                tuner: {
+                    get: () => {
+                        return sendRequest('get', host + '/menu_native/dynamic/tv_settings/system/system_information/tuner_information', _authKey);
+                    }
+                },
+                network: {
+                    get: () => {
+                        return sendRequest('get', host + '/menu_native/dynamic/tv_settings/system/system_information/network_information', _authKey);
+                    }
+                },
+                uli: {
+                    get: () => {
+                        return sendRequest('get', host + '/menu_native/dynamic/tv_settings/system/system_information/uli_information', _authKey);
+                    }
+                }
+            }
+        },
+        mobileDevices: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/mobile_devices', _authKey);
+            }
+        },
+        cast: {
+            get: () => {
+                return sendRequest('get', host + '/menu_native/dynamic/tv_settings/cast', _authKey);
+            }
+        }
+   };
 };

@@ -2,8 +2,6 @@
 
 npm module to communicate with vizio smartcast tvs
 
-*NOTE:* This library is still in alpha and under rapid development. You'll likely find breaking changes between versions for now.
-
 ## Code Example
 
 ```JavaScript
@@ -283,7 +281,7 @@ Set the current input to the specified name. Name can be either the built-in nam
 #### Returns
 *(`Promise`)*: A promise of the http response from the smartcast device
 
-*NOTE*: the HTTP call may return, and thus the promise may resolve before the smartcast device has finished changing inputs. For that reason, it is possible to receive the old value from tv.input.current() if you call it immediately after the promise from tv.input.set(...) resolves.
+*NOTE:* the HTTP call may return, and thus the promise may resolve before the smartcast device has finished changing inputs. For that reason, it is possible to receive the old value from tv.input.current() if you call it immediately after the promise from tv.input.set(...) resolves.
 
 #### Example
 ```js
@@ -485,6 +483,300 @@ let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.keyCommand(5, 1, 'KEYDOWN');
+```
+
+### `settings.picture.get()`
+Get picture settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.picture.get().then(data => console.log(data));
+```
+
+### `settings.picture.size.get()`
+Get picture size settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.picture.size.get().then(data => console.log(data));
+```
+
+### `settings.picture.position.get()`
+Get picture position settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.picture.position.get().then(data => console.log(data));
+```
+
+### `settings.picture.modeEdit.get()`
+Get mode settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.picture.modeEdit.get().then(data => console.log(data));
+```
+
+### `settings.picture.color.calibration.get()`
+Get color calibration settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.picture.color.calibration.get().then(data => console.log(data));
+```
+
+### `settings.picture.color.tuner.get()`
+Get color tuner settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.picture.color.tuner.get().then(data => console.log(data));
+```
+
+### `settings.picture.calibrationTests.get()`
+Get calibration test settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.picture.calibrationTests.get().then(data => console.log(data));
+```
+
+### `settings.audio.get()`
+Get audio settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.audio.get().then(data => console.log(data));
+```
+
+### `settings.timers.get()`
+Get timer settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.timers.get().then(data => console.log(data));
+```
+
+### `settings.network.get()`
+Get network settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.network.get().then(data => console.log(data));
+```
+
+### `settings.channels.get()`
+Get channels settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.channels.get().then(data => console.log(data));
+```
+
+### `settings.closedCaptions.get()`
+Get closed caption settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.closedCaptions.get().then(data => console.log(data));
+```
+
+### `settings.devices.get()`
+Get devices settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.devices.get().then(data => console.log(data));
+```
+
+### `settings.system.get()`
+Get system settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.system.get().then(data => console.log(data));
+```
+
+### `settings.system.information.get()`
+Get system information settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.system.information.get().then(data => console.log(data));
+```
+
+### `settings.system.information.tv.get()`
+Get tv information
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.system.information.tv.get().then(data => console.log(data));
+```
+
+### `settings.system.information.tuner.get()`
+Get tuner information
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.system.information.tuner.get().then(data => console.log(data));
+```
+
+### `settings.system.information.network.get()`
+Get network information
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.system.information.network.get().then(data => console.log(data));
+```
+
+### `settings.system.information.uli.get()`
+Get ULI information
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.system.information.uli.get().then(data => console.log(data));
+```
+
+### `settings.mobileDevices.get()`
+Get mobile device settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.mobileDevices.get().then(data => console.log(data));
+```
+
+### `settings.cast.get()`
+Get cast settings
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.settings.cast.get().then(data => console.log(data));
 ```
 
 ## Tests
