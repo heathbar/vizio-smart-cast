@@ -9,7 +9,7 @@ let sendRequest = (method, url, authKey, data) => {
         url: url,
         json: true,
         rejectUnauthorized: false,
-        body: JSON.stringify(data)
+        body: data
     };
 
     if (authKey) {
@@ -92,10 +92,12 @@ module.exports = function smartcast(ip, authKey) {
                 "DEVICE_ID": _deviceId
             };
             return sendRequest('put', host + '/pairing/start', null, data).then((data) => {
-                if (data && data.STATUS.RESULT === 'SUCCESS') {
+                if (data && data.STATUS && data.STATUS.RESULT === 'SUCCESS') {
                     _pairingRequestToken = data.ITEM.PAIRING_REQ_TOKEN;
+                    return data;
+                } else {
+                    return Promise.reject(data);
                 }
-                return data;
             });
         },
 
@@ -114,8 +116,10 @@ module.exports = function smartcast(ip, authKey) {
             return sendRequest('put', host + '/pairing/pair', null, data).then((data) => {
                 if (data && data.STATUS.RESULT === 'SUCCESS') {
                     _authKey = data.ITEM.AUTH_TOKEN;
+                    return data;
+                } else {
+                    return Promise.reject(data);
                 }
-                return data;
             });
         },
 
