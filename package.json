@@ -1,6 +1,6 @@
 {
   "name": "vizio-smart-cast",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "module to communicate with vizio smart cast tvs",
   "main": "index.js",
   "scripts": {
