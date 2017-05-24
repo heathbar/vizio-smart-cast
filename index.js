@@ -57,7 +57,7 @@ let findInputByName = (name, list) => {
  * @param {string} ip IP address of the smartcast device
  * @param {string=} authKey auth key to authorize yourself with the smart cast device
  */
-module.exports = function smartcast(ip, authKey) {
+let SMARTCAST = function smartcast(ip, authKey) {
     let _pairingRequestToken = '',
         _authKey = authKey || '',
         _deviceId = '',
@@ -334,3 +334,69 @@ module.exports = function smartcast(ip, authKey) {
         }
    };
 };
+
+SMARTCAST.discover = (success, error, timeout) => {
+    if (!error) {
+        error = () => {};
+    }
+
+    if (!timeout) {
+        timeout = 4000;
+    }
+
+    let ssdp = require('node-ssdp').Client,
+        client = new ssdp();
+
+        client.on('response', (headers, statusCode, info) => {
+            request.get(headers.LOCATION).then((description) => {
+                let device = { ip: info.address };
+
+                try {
+                    let sax = require('sax'),
+                        parser = sax.parser(true), // true = strict mode
+                        tagName;
+                        
+                    parser.onopentag = function (node) {
+                        tagName = node.name;
+                    };
+
+                    parser.ontext = function (t) {
+                        if (t.trim()) {
+                            switch(tagName) {
+                                case 'friendlyName':
+                                    device.name = t;
+                                    break;
+                                case 'modelName':
+                                    device.model = t;
+                                    break;
+                                case 'manufacturer':
+                                    device.manufacturer = t;
+                                    break;
+                            }
+                        }
+                    };
+
+                    parser.onend = function () {
+                        if (device.manufacturer.toUpperCase() === 'VIZIO') {
+                            success(device);
+                        } else {
+                            error('Incorrect manufacturer found: ' + device.manufacturer, device);
+                        }
+                    };
+
+                    parser.write(description).close();
+                } catch (err) {
+                    error(err);
+                }
+            }).catch((err) => {
+                error(err);
+            });
+
+        });
+        client.search('urn:dial-multiscreen-org:device:dial:1');
+
+        setTimeout(() => {}, timeout);
+        
+};
+
+module.exports = SMARTCAST;

@@ -23,6 +23,33 @@ npm install vizio-smart-cast --save
 
 ## API Reference
 
+### `smartcast.discover(success, [error, [timeout]] )`
+Discover smartcast devices on the local network
+
+#### Arguments
+1. `success` *(Function)*: callback to execute when a device is found
+1. `error` *(Function)*: callback to execute when an error occurs
+1. `timeout` *(number)*: number of milliseconds to wait for responses, defaults to 4000ms
+
+#### Returns
+*(`void`)*: nothing important
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+smartcast.discover((device) => {
+    console.log(device);
+});
+
+// Example output:
+// {
+//     ip: '192.168.0.131',
+//     name: 'Living Room',
+//     manufacturer: 'VIZIO',
+//     model: 'P65-C1'
+// }
+```
+
 ### `new smartcast(ipAddress, [authToken])`
 Instatiates a new smartcast device
 
