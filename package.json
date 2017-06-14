@@ -22,6 +22,7 @@
     "sinon": "^2.1.0"
   },
   "dependencies": {
+    "node-ssdp": "^3.2.1",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.3",
     "sax": "^1.2.2"
