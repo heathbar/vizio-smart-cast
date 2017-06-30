@@ -1,13 +1,3 @@
-interface SmartcastStatic {
-    discover: (success: Function, error?: Function, timeout?: number) => void;
-    new(ip: string, authKey?: string): SmartcastStatic;
-    
-    power: SmartcastPower;
-    pairing: SmartcastPairing;
-    input: SmartcastInput;
-    control: SmartcastControl;
-    settings: SmartcastSettings;
-}
 
 interface SmartcastPower {
     currentMode(): Promise<any>;
@@ -101,6 +91,26 @@ interface SmartcastSettingsSystemInformation {
     uli: SmartcastGet;
 }
 
-declare var smartcast: SmartcastStatic;
+declare namespace smartcast {
+    export interface Device {
+        discover: (success: (discovery: Discovery) => void, error?: (error: any) => void, timeout?: number) => void;
+        new(ip: string, authKey?: string): Device;
+        
+        power: SmartcastPower;
+        pairing: SmartcastPairing;
+        input: SmartcastInput;
+        control: SmartcastControl;
+        settings: SmartcastSettings;
+    }
+
+    export interface Discovery {
+        ip: string;
+        name: string;
+        manufacturer: string;
+        model: string;
+    }
+}
+
+declare var smartcast: smartcast.Device;
 
 export = smartcast;
