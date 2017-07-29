@@ -84,7 +84,7 @@ tv.power.currentMode().then((data) => {
 // {"STATUS": {"RESULT": "SUCCESS", "DETAIL": "Success"}, "ITEMS": [{"CNAME": "power_mode", "TYPE": "T_VALUE_V1", "NAME": "Power Mode", "VALUE": 0}], "URI": "/state/device/power_mode"}
 ```
 
-### `pairing.initialize([deviceName, [deviceId]])`
+### `pairing.initiate([deviceName, [deviceId]])`
 Initiate pairing with a smartcast device. If successful, a pin will be displayed on the screen of the smartcast device. Device name and ID do not appear to do anything useful, but they are included here for completeness.
 
 #### Arguments
@@ -101,7 +101,7 @@ see next method for example
 Provide a user-entered pin to the smartcast device. The smartcast device will respond with an auth token that can be used indefinitely. The vizio-smart-cast library will automatically re-use the token for the remainder of the session. For future sessions, specify the authToken in the constructor or call `pairing.useAuthToken(...)` with the token to skip the pairing process.
 
 #### Arguments
-1. `pin` *(string)*: The pin displayed on the smartcast device after a successful `pairing.initialize()` call
+1. `pin` *(string)*: The pin displayed on the smartcast device after a successful `pairing.initiate()` call
 
 #### Returns
 *(`Promise`)*: A promise containing the response from the smartcast device, including the auth token to use for future requests
