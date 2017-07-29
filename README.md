@@ -88,8 +88,8 @@ tv.power.currentMode().then((data) => {
 Initiate pairing with a smartcast device. If successful, a pin will be displayed on the screen of the smartcast device. Device name and ID do not appear to do anything useful, but they are included here for completeness.
 
 #### Arguments
-1. `[deviceName]` *(string='vizio-smart-cast-node-app')*: Name of the connecting device/app
-1. `[deviceId]` *(string='vizio-smart-cast-node-app')*: ID of the connecting device/app
+1. `[deviceName]` *(string='node-app-1234567890')*: Name of the connecting device/app
+1. `[deviceId]` *(string='node-app-1234567890')*: ID of the connecting device/app
 
 #### Returns
 *(`Promise`)*: A promise containing the response from the smartcast device

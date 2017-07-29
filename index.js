@@ -84,8 +84,8 @@ let SMARTCAST = function smartcast(ip, authKey) {
          * @return {Observable}
          */
         initiate: (deviceName, deviceId) => {
-            _deviceName = deviceName || 'vizio-smart-cast-node-app';
-            _deviceId = deviceId || 'vizio-smart-cast-node-app';
+            _deviceName = deviceName || 'node-app-' + new Date().getTime();
+            _deviceId = deviceId || 'node-app-' + new Date().getTime();
 
             let data = {
                 "DEVICE_NAME": _deviceName,
@@ -96,7 +96,11 @@ let SMARTCAST = function smartcast(ip, authKey) {
                     _pairingRequestToken = data.ITEM.PAIRING_REQ_TOKEN;
                     return data;
                 } else {
-                    return Promise.reject(data);
+                    if (data.STATUS.RESULT === 'BLOCKED') {
+                        return Promise.reject('Failed to initiate the pairing process because a pairing request has already been initiated. Please wait for the pin to clear from the screen before initiating the pairing process again.', data);
+                    } else {
+                        return Promise.reject(data);
+                    }
                 }
             });
         },

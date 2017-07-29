@@ -1,9 +1,12 @@
 'use strict';
 
-let expect = require('chai').expect,
+let chai = require('chai'),
+    expect = chai.expect,
     sinon = require('sinon'),
     request = require('request-promise-native'),
     smartcast = require('../index');
+
+chai.use(require('chai-string'));
 
 describe('#smart-cast-pairing-tests', function() {
 
@@ -62,11 +65,11 @@ describe('#smart-cast-pairing-tests', function() {
         sinon.stub(request, 'put').returns(Promise.resolve(mockData));
         
         tv.pairing.initiate().then((data) => {
-            expect(request.put.firstCall.args[0].body.DEVICE_NAME).to.equal('vizio-smart-cast-node-app');
-            expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal('vizio-smart-cast-node-app');
+            expect(request.put.firstCall.args[0].body.DEVICE_NAME).to.startsWith('node-app-');
+            expect(request.put.firstCall.args[0].body.DEVICE_ID).to.startsWith('node-app-');
             request.put.restore();
             done();
-        });
+        }).catch(e => console.log(e));
     });
 
     it('intiate should use specified device name and id', function(done) {
@@ -168,7 +171,7 @@ describe('#smart-cast-pairing-tests', function() {
 
             tv.pairing.pair('9876').then((data) => {
 
-                expect(request.put.firstCall.args[0].body.DEVICE_ID).to.equal('vizio-smart-cast-node-app');
+                expect(request.put.firstCall.args[0].body.DEVICE_ID).to.startsWith('node-app');
                 request.put.restore();
                 done();
             });
