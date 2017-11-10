@@ -150,7 +150,7 @@ let SMARTCAST = function smartcast(ip, authKey) {
         },
         set: (name) => {
             return new Promise((resolve, reject) => {
-                Promise.all([this.input.list(), this.input.current()]).then(values => { 
+                Promise.all([this.input.list(), this.input.current()]).then(values => {
                     let inputList = values[0],
                         currentInput = values[1],
                         inputName = findInputByName(name, inputList);
@@ -176,7 +176,7 @@ let SMARTCAST = function smartcast(ip, authKey) {
             });
         }
     };
-    
+
     this.control = {
         keyCommand: (codeset, code, action) => {
             let data = keyData(codeset, code, action);
@@ -225,11 +225,62 @@ let SMARTCAST = function smartcast(ip, authKey) {
             toggle: () => {
                 return this.control.keyCommand(11, 2);
             }
+        },
+        media: {
+            seek: {
+                forward: () => {
+                    return this.control.keyCommand(2, 0);
+                },
+                back: () => {
+                    return this.control.keyCommand(2, 1);
+                }
+            },
+            play: () => {
+                return this.control.keyCommand(2, 3);
+            },
+            pause: () => {
+                return this.control.keyCommand(2, 2);
+            },
+            cc: () => {
+                return this.control.keyCommand(4, 4);
+            }
+        },
+        navigate: {
+            up: () => {
+                return this.control.keyCommand(3, 3);
+            },
+            down: () => {
+                return this.control.keyCommand(3, 0);
+            },
+            left: () => {
+                return this.control.keyCommand(3, 1);
+            },
+            right: () => {
+                return this.control.keyCommand(3, 5);
+            },
+            ok: () => {
+                return this.control.keyCommand(3, 2);
+            },
+            back: () => {
+                return this.control.keyCommand(4, 0);
+            },
+            exit: () => {
+                return this.control.keyCommand(9, 0);
+            }
+        },
+        menu: () => {
+            return this.control.keyCommand(4, 8);
+        },
+        info: () => {
+            return this.control.keyCommand(4, 6);
+        },
+        smartcast: () => {
+            return this.control.keyCommand(4, 3);
         }
     };
 
     this.settings = {
-        picture: { 
+        picture: {
             get: () => {
                 return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture', _authKey);
             },
@@ -359,7 +410,7 @@ SMARTCAST.discover = (success, error, timeout) => {
                     let sax = require('sax'),
                         parser = sax.parser(true), // true = strict mode
                         tagName;
-                        
+
                     parser.onopentag = function (node) {
                         tagName = node.name;
                     };
@@ -400,7 +451,7 @@ SMARTCAST.discover = (success, error, timeout) => {
         client.search('urn:dial-multiscreen-org:device:dial:1');
 
         setTimeout(() => {}, timeout);
-        
+
 };
 
 module.exports = SMARTCAST;
