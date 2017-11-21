@@ -123,7 +123,7 @@ tv.pairing.initiate().then((response) => {
 
     // prompt the user for the pin that is displayed on the smartcast device
     rl.question('Enter PIN:', (answer) => {
-        
+
         // send the pin to the smartcast device to complete the pairing process
         tv.pairing.pair(answer).then((response) => {
 
@@ -178,7 +178,7 @@ tv.input.current().then((data) => {
 });
 // Example output
 // { STATUS: { RESULT: 'SUCCESS', DETAIL: 'Success' },
-//  ITEMS: 
+//  ITEMS:
 //   [ { HASHVAL: 1234123412,
 //       NAME: 'Current Input',
 //       ENABLED: 'FALSE',
@@ -449,7 +449,7 @@ tv.control.channel.previous();
 ```
 
 ### `control.power.on()`
-Turn on the device. 
+Turn on the device.
 *Note:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
 
 #### Returns
@@ -490,6 +490,221 @@ let smartcast = require('vizio-smart-cast');
 let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.power.toggle();
+```
+
+### `control.media.seek.forward()`
+Seeks the current media forward
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.media.seek.forward();
+```
+
+
+### `control.media.seek.back()`
+Seeks the current media backwards
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.media.seek.back();
+```
+
+### `control.media.play()`
+Plays the current media
+*Note:* Some applications will toggle play / pause
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.media.play();
+```
+
+### `control.media.pause()`
+Pauses the current media
+*Note:* Some applications will toggle play / pause
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.media.pause();
+```
+
+### `control.media.cc()`
+Sends closed captioning key
+*Note:* Some applications require sending this command to switch between languages
+The arrow keys should also work for this.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.media.cc();
+```
+
+### `control.navigate.up()`
+Up arrow key used to navigate.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.navigate.up();
+```
+
+### `control.navigate.down()`
+Down arrow key used to navigate.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.navigate.down();
+```
+
+### `control.navigate.left()`
+Left arrow key used to navigate.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.navigate.left();
+```
+
+### `control.navigate.right()`
+Right arrow key used to navigate.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.navigate.right();
+```
+
+### `control.navigate.ok()`
+Ok key used for navigating.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.navigate.ok();
+```
+
+### `control.navigate.back()`
+Navigate back in an application.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.navigate.back();
+```
+
+### `control.navigate.exit()`
+Exit an application.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.navigate.exit();
+```
+
+### `control.menu()`
+Launch the on-screen menu.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.menu();
+```
+
+### `control.info()`
+Displays the tuner information.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.info();
+```
+
+### `control.smartcast()`
+Launch the smartcast application.
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.smartcast();
 ```
 
 ### `control.keyCommand(codeset, code, [action])`
