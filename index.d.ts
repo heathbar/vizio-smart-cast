@@ -4,7 +4,7 @@ interface SmartcastPower {
 }
 
 interface SmartcastPairing {
-    initialize(deviceName?: string, deviceId?: string): Promise<any>;
+    initiate(deviceName?: string, deviceId?: string): Promise<any>;
     pair(pin: string): Promise<any>;
     useAuthToken(token: string): void;
 }
