@@ -85,7 +85,7 @@ tv.power.currentMode().then((data) => {
 ```
 
 ### `pairing.initiate([deviceName, [deviceId]])`
-Initiate pairing with a smartcast device. If successful, a pin will be displayed on the screen of the smartcast device. Device name and ID do not appear to do anything useful, but they are included here for completeness.
+Initiate pairing with a smartcast device. If successful, a pin will be displayed on the screen of the smartcast device. Device name and ID appear in the SmartCast app to uniquely identify and manage connections.
 
 #### Arguments
 1. `[deviceName]` *(string='node-app-1234567890')*: Name of the connecting device/app
