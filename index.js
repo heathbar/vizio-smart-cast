@@ -2,7 +2,7 @@
 
 let request = require('request-promise-native'),
     PROTO = 'https://',
-    PORT = 9000;
+    PORT = 7345;
 
 let sendRequest = (method, url, authKey, data) => {
     let req = {
