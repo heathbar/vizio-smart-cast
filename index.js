@@ -2,7 +2,7 @@
 
 let request = require('request-promise-native'),
     PROTO = 'https://',
-    PORT = 9000;
+    PORT = 7345;
 
 let sendRequest = (method, url, authKey, data) => {
     let req = {
@@ -54,16 +54,20 @@ let findInputByName = (name, list) => {
 };
 
 /**
- * @param {string} ip IP address of the smartcast device
+ * @param {string} host Host IP address (and optionally PORT) of the smartcast device
  * @param {string=} authKey auth key to authorize yourself with the smart cast device
  */
-let SMARTCAST = function smartcast(ip, authKey) {
+let SMARTCAST = function smartcast(host, authKey) {
     let _pairingRequestToken = '',
         _authKey = authKey || '',
         _deviceId = '',
         _deviceName = '';
 
-    let host = PROTO + ip + ':' + PORT;
+    // if user didn't provide a port, use the default port
+    if (host.indexOf(':') == -1) {
+        host += ':' + PORT;
+    }
+    host = PROTO + host;
 
     this.power = {
         /**

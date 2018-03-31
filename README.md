@@ -50,11 +50,11 @@ smartcast.discover((device) => {
 // }
 ```
 
-### `new smartcast(ipAddress, [authToken])`
+### `new smartcast(host, [authToken])`
 Instatiates a new smartcast device
 
 #### Arguments
-1. `ipAddress` *(string)*: IP address of the smartcast device
+1. `host` *(string)*: Host IP address (and optionally PORT) of the smartcast device
 1. `[authToken]` *(string)*: Authorization token from a previous session. Auth tokens are returned from `pairing.pair(...)`
 
 #### Returns
