@@ -14,7 +14,7 @@ describe('#smart-cast-power-tests', function() {
         tv.power.currentMode();
 
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/state/device/power_mode');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/state/device/power_mode');
         request.get.restore();
     });
 });

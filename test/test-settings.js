@@ -15,7 +15,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.picture.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/picture');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture');
 
         request.get.restore();
     });
@@ -28,7 +28,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.picture.size.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/picture/picture_size');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_size');
 
         request.get.restore();
     });
@@ -41,7 +41,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.picture.position.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/picture/picture_position');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_position');
 
         request.get.restore();
     });
@@ -54,7 +54,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.picture.modeEdit.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/picture/picture_mode_edit');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_mode_edit');
 
         request.get.restore();
     });
@@ -67,7 +67,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.picture.color.calibration.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/picture/color_calibration');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration');
 
         request.get.restore();
     });
@@ -80,7 +80,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.picture.color.tuner.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/picture/color_calibration/color_tuner');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration/color_tuner');
 
         request.get.restore();
     });
@@ -93,7 +93,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.picture.calibrationTests.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/picture/color_calibration/calibration_tests');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration/calibration_tests');
 
         request.get.restore();
     });
@@ -106,7 +106,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.audio.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/audio');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/audio');
 
         request.get.restore();
     });
@@ -119,7 +119,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.timers.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/timers');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers');
 
         request.get.restore();
     });
@@ -132,7 +132,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.network.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/network');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/network');
 
         request.get.restore();
     });
@@ -145,7 +145,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.channels.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/channels');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/channels');
 
         request.get.restore();
     });
@@ -158,7 +158,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.closedCaptions.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/closed_captions');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/closed_captions');
 
         request.get.restore();
     });
@@ -171,7 +171,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.devices.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices');
 
         request.get.restore();
     });
@@ -184,7 +184,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.system.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/system');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system');
 
         request.get.restore();
     });
@@ -197,7 +197,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.system.information.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/system/system_information');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information');
 
         request.get.restore();
     });
@@ -210,7 +210,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.system.information.tv.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/system/system_information/tv_information');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/tv_information');
 
         request.get.restore();
     });
@@ -223,7 +223,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.system.information.tuner.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/system/system_information/tuner_information');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/tuner_information');
 
         request.get.restore();
     });
@@ -236,7 +236,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.system.information.network.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/system/system_information/network_information');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/network_information');
 
         request.get.restore();
     });
@@ -249,7 +249,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.system.information.uli.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/system/system_information/uli_information');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/uli_information');
 
         request.get.restore();
     });
@@ -262,7 +262,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.mobileDevices.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/mobile_devices');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/mobile_devices');
 
         request.get.restore();
     });
@@ -275,7 +275,7 @@ describe('#smart-cast-settings-tests', () => {
         tv.settings.cast.get();
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/cast');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/cast');
 
         request.get.restore();
     });

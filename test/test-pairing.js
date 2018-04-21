@@ -25,7 +25,7 @@ describe('#smart-cast-pairing-tests', function() {
         tv.pairing.initiate();
 
         expect(request.put.called).to.be.true;
-        expect(request.put.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/pairing/start');
+        expect(request.put.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/pairing/start');
         request.put.restore();
     });
 
@@ -113,7 +113,7 @@ describe('#smart-cast-pairing-tests', function() {
         tv.pairing.pair(pin);
 
         expect(request.put.called).to.be.true;
-        expect(request.put.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/pairing/pair');
+        expect(request.put.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/pairing/pair');
         request.put.restore();
     });
 

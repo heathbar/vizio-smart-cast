@@ -16,7 +16,7 @@ describe('#smart-cast-input-tests', function() {
                 },
                 "HASHLIST": [
                     1234567890,
-                    0987654321,
+                    987654321,
                     9999999999
                 ],
                 "GROUP": "G_DEVICES",
@@ -109,7 +109,7 @@ describe('#smart-cast-input-tests', function() {
 
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/name_input');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices/name_input');
 
         request.get.restore();
     });
@@ -142,7 +142,7 @@ describe('#smart-cast-input-tests', function() {
 
         
         expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/current_input');
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices/current_input');
 
         request.get.restore();
     });
@@ -157,8 +157,8 @@ describe('#smart-cast-input-tests', function() {
 
         tv.input.set(inputName).then(() => {
             expect(request.get.called).to.be.true;
-            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/name_input');
-            expect(request.get.secondCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/current_input');
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices/name_input');
+            expect(request.get.secondCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices/current_input');
 
             request.get.restore();
             request.put.restore();
@@ -209,8 +209,8 @@ describe('#smart-cast-input-tests', function() {
 
         tv.input.set(inputName).then(() => {
             expect(request.get.called).to.be.true;
-            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/name_input');
-            expect(request.get.secondCall.args[0].url).to.equal('https://0.0.0.0:9000/menu_native/dynamic/tv_settings/devices/current_input');
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices/name_input');
+            expect(request.get.secondCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices/current_input');
 
             expect(request.put.called).to.be.true;
 
