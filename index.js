@@ -193,6 +193,30 @@ let SMARTCAST = function smartcast(host, authKey) {
             up: () => {
                 return this.control.keyCommand(5, 1);
             },
+            set: (value) => {
+                return new Promise((resolve, reject) => {
+                    if (typeof value !== 'number') {
+                        reject('value must be a number');
+                    }
+                    if (value < 0 || value > 100) {
+                        reject('value is out of range, please enter a number between 0 to 100 inclusive');
+                    }
+                    this.settings.audio.get().then((settings) => {
+                        let volume = settings.ITEMS.find(i => i.CNAME === 'volume')
+                        if (!volume) {
+                            reject('no volume setting found');
+                            return;
+                        }
+
+                        let data = {
+                            'REQUEST': 'MODIFY',
+                            'HASHVAL': volume.HASHVAL,
+                            'VALUE': Math.round(value)
+                        };
+                        sendRequest('put', host + '/menu_native/dynamic/tv_settings/audio/volume', _authKey, data).then(resolve).catch(reject)
+                    }).catch(reject);
+                });
+            },
             unmute: () => {
                 return this.control.keyCommand(5, 2);
             },
@@ -201,7 +225,7 @@ let SMARTCAST = function smartcast(host, authKey) {
             },
             toggleMute: () => {
                 return this.control.keyCommand(5, 4);
-            },
+            }
         },
         input: {
             cycle: () => {

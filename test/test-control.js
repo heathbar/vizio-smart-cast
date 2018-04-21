@@ -13,7 +13,7 @@ describe('#smart-cast-control-tests', () => {
         sinon.stub(request, 'put').returns(Promise.resolve(mockData));
     });
     afterEach(() => {
-      request.put.restore();
+        request.put.restore();
     });
 
     it('keyCommand should use KEYPRESS for default action', () => {
@@ -53,6 +53,84 @@ describe('#smart-cast-control-tests', () => {
         expect(request.put.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/key_command/');
         expect(request.put.firstCall.args[0].body.KEYLIST[0].CODESET).to.equal(5);
         expect(request.put.firstCall.args[0].body.KEYLIST[0].CODE).to.equal(1);
+    });
+
+    it('volume set should not accept strings', () => {
+        return tv.control.volume.set('10').then((result) => {
+            throw new Error('Promise was unexpectedly resolved');
+        },
+            (error) => {
+                expect(error).to.equal('value must be a number');
+            });
+    });
+
+    it('volume set should not accept numbers below zero', () => {
+        return tv.control.volume.set(-1).then((result) => {
+            throw new Error('Promise was unexpectedly resolved');
+        },
+        (error) => {
+            expect(error).to.contain('value is out of range');
+        });
+    });
+
+    it('volume set should not accept numbers above 100', () => {
+        return tv.control.volume.set(101).then((result) => {
+            throw new Error('Promise was unexpectedly resolved');
+        },
+        (error) => {
+            expect(error).to.contain('value is out of range');
+        });
+    });
+
+    it('volume set should call api', () => {
+        let mockAudioSettings = {
+            STATUS: { RESULT: 'SUCCESS', DETAIL: 'Success' },
+            HASHLIST: [3834262744, 2622384733],
+            GROUP: 'G_AUDIO',
+            NAME: 'Audio',
+            PARAMETERS: { FLAT: 'TRUE', HELPTEXT: 'FALSE', HASHONLY: 'FALSE' },
+            ITEMS:
+                [
+                    {
+                        INDEX: 0,
+                        HASHVAL: 1921643227,
+                        NAME: 'Analog Audio Out',
+                        VALUE: 'Fixed',
+                        CNAME: 'analog_audio_out',
+                        TYPE: 'T_LIST_V1'
+                    },
+                    {
+                        HASHVAL: 1376136352,
+                        CNAME: 'volume',
+                        NAME: 'Volume',
+                        TYPE: 'T_VALUE_V1',
+                        ENABLED: 'FALSE',
+                        VALUE: 20
+                    },
+                    {
+                        INDEX: 0,
+                        HASHVAL: 2210364172,
+                        CNAME: 'mute',
+                        NAME: 'Mute',
+                        TYPE: 'T_LIST_V1',
+                        ENABLED: 'FALSE',
+                        VALUE: 'Off'
+                    },
+                ],
+            URI: '/menu_native/dynamic/tv_settings/audio',
+            CNAME: 'audio',
+            TYPE: 'T_MENU_V1'
+        };
+
+        sinon.stub(tv.settings.audio, 'get').returns(Promise.resolve(mockAudioSettings));
+
+        return tv.control.volume.set(12).then(() => {
+            expect(request.put.called).to.be.true;
+            expect(request.put.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/audio/volume');
+            expect(request.put.firstCall.args[0].body.REQUEST).to.equal('MODIFY');
+            expect(request.put.firstCall.args[0].body.HASHVAL).to.equal(1376136352);
+            expect(request.put.firstCall.args[0].body.VALUE).to.equal(12);
+        });
     });
 
     it('mute off should call api', () => {

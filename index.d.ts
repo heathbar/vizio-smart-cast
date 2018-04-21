@@ -26,6 +26,7 @@ interface SmartcastControl {
 interface SmartcastControlVolume {
     up(): Promise<any>;
     down(): Promise<any>;
+    set(): Promise<any>;
     mute(): Promise<any>;
     unmute(): Promise<any>;
     toggleMute(): Promise<any>;

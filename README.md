@@ -349,6 +349,22 @@ let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 
 tv.control.volume.up();
 ```
+### `control.volume.set(value)`
+Specify a specific volume level
+
+#### Arguments
+1. `value` *(number)*: The volume level to set [0-100]
+
+#### Returns
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.control.volume.set(20);
+```
 
 ### `control.volume.mute()`
 Mute the volume
