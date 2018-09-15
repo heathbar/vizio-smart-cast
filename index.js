@@ -322,6 +322,40 @@ let SMARTCAST = function smartcast(host, authKey) {
                     return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_position', _authKey);
                 }
             },
+            mode: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_mode', _authKey);
+                },
+                set: (value) => {
+                    return new Promise((resolve, reject) => {
+                        if (typeof value !== 'string') {
+                            reject('value must be a string');
+                            return;
+                        }
+
+                        this.settings.picture.mode.get().then((settings) => {
+                            let pictureMode = settings.ITEMS.find(i => i.CNAME === 'picture_mode');
+                            if (!pictureMode) {
+                                reject('could not get picture mode settings');
+                                return;
+                            }
+
+                            let pictureModeValue = pictureMode.ELEMENTS.find(i => i === value);
+                            if (!pictureModeValue) {
+                                reject('Picture mode: ' + value + ' not found');
+                                return;
+                            }
+                            
+                            let data = {
+                                'REQUEST': 'MODIFY',
+                                'HASHVAL': pictureMode.HASHVAL,
+                                'VALUE': pictureModeValue
+                            };
+                            sendRequest('put', host + '/menu_native/dynamic/tv_settings/picture/picture_mode', _authKey, data).then(resolve).catch(reject);
+                        }).catch(reject);
+                    });
+                }
+            },
             modeEdit: {
                 get: () => {
                     return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_mode_edit', _authKey);
