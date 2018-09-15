@@ -52,6 +52,16 @@ interface SmartcastGet {
     get(): Promise<any>;
 }
 
+interface SmartcastGetSet {
+    get(): Promise<any>;
+    set(value: string): Promise<any>;
+}
+
+interface SmartcastGetExecute {
+    get(): Promise<any>;
+    execute(): Promise<any>;
+}
+
 interface SmartcastSettings {
     picture: SmartcastSettingsPicture;
     audio: SmartcastGet;
