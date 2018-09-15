@@ -72,7 +72,7 @@ interface SmartcastGetExecute {
 interface SmartcastSettings {
     picture: SmartcastSettingsPicture;
     audio: SmartcastGet;
-    timers: SmartcastGet;
+    timers: SmartcastTimers;
     network: SmartcastGet;
     channels: SmartcastGet;
     closedCaptions: SmartcastGet;
