@@ -48,6 +48,13 @@ interface SmartcastControlPower {
     toggle(): Promise<any>;
 }
 
+interface SmartcastTimers {
+    get(): Promise<any>;
+    sleepTimer: SmartcastGetSet;
+    autoPowerOffTimer: SmartcastGetSet;
+    blankScreen: SmartcastGetExecute;
+}
+
 interface SmartcastGet {
     get(): Promise<any>;
 }
