@@ -163,6 +163,19 @@ describe('#smart-cast-settings-tests', () => {
         request.get.restore();
     });
 
+    it('timers autoPowerOffTimer should call api', () => {
+        let tv = new smartcast('0.0.0.0'),
+            mockData = {};
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+
+        tv.settings.timers.autoPowerOffTimer.get();
+        
+        expect(request.get.called).to.be.true;
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers/auto_power_off_timer');
+
+        request.get.restore();
+    });
+
     it('network should call api', () => {
         let tv = new smartcast('0.0.0.0'),
             mockData = {};
