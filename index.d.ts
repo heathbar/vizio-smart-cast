@@ -87,6 +87,7 @@ interface SmartcastSettingsPicture {
     size: SmartcastGet;
     position: SmartcastGet;
     modeEdit: SmartcastGet;
+    mode: SmartcastGetSet;
     color: SmartcastSettingsPictureColor;
     calibrationTests: SmartcastGet;
 }
