@@ -59,6 +59,19 @@ describe('#smart-cast-settings-tests', () => {
         request.get.restore();
     });
 
+    it('picture mode should call api', () => {
+        let tv = new smartcast('0.0.0.0'),
+            mockData = {};
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+
+        tv.settings.picture.mode.get();
+        
+        expect(request.get.called).to.be.true;
+        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_mode');
+
+        request.get.restore();
+    });
+
     it('picture color calibration should call api', () => {
         let tv = new smartcast('0.0.0.0'),
             mockData = {};
