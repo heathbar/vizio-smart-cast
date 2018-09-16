@@ -167,6 +167,61 @@ describe('#smart-cast-settings-tests', () => {
         });
     });
 
+    it('timers autoPowerOffTimer set() should not accept integers outside of 0-1', () => {
+        return tv.settings.timers.autoPowerOffTimer.set(2).then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+        });
+    });
+
+    it('timers autoPowerOffTimer set() should not accept invalid string values', () => {
+        return tv.settings.timers.autoPowerOffTimer.set("30 minutes").then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+        });
+    });
+
+    it('timers autoPowerOffTimer set() should call api', () => {
+        mockData = {
+            STATUS: {
+                RESULT: "SUCCESS",
+                DETAIL: "Success"
+            },
+            ITEMS: [
+                {
+                    INDEX: 0,
+                    HASHVAL: 3630612972,
+                    NAME: "Auto Power Off",
+                    VALUE: "10 minutes",
+                    CNAME: "auto_power_off_timer",
+                    TYPE: "T_LIST_V1"
+                }
+            ],
+            HASHLIST: [
+                2557875263,
+                2021181097
+            ],
+            URI: "/menu_native/dynamic/tv_settings/timers/auto_power_off_timer",
+            PARAMETERS: {
+                FLAT: "TRUE",
+                HELPTEXT: "FALSE",
+                HASHONLY: "FALSE"
+            }
+        };
+        let get = sinon.stub(tv.settings.timers.autoPowerOffTimer, 'get').returns(Promise.resolve(mockData));
+        let set = sinon.stub(request, 'put').returns(Promise.resolve(mockData));
+
+        return tv.settings.timers.autoPowerOffTimer.set(1).then(() => {
+            expect(set.called).to.be.true;
+            expect(set.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers/auto_power_off_timer');
+    
+            get.restore();
+            set.restore();
+        });
+    });
+
     it('network should call api', () => {
         mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
