@@ -69,6 +69,102 @@ describe('#smart-cast-settings-tests', () => {
         });
     });
 
+    it('picture mode set() should not accept non-string values', () => {
+        return tv.settings.picture.mode.set(0).then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value must be a string')
+        });
+    });
+
+    it('picture mode set() should not accept invalid string values', () => {
+        mockData = {
+            STATUS: {
+                RESULT: "SUCCESS",
+                DETAIL: "Success"
+            },
+            ITEMS: [
+                {
+                    HASHVAL: 3817665489,
+                    ELEMENTS: [
+                        "Standard",
+                        "Calibrated",
+                        "Vivid",
+                        "Game",
+                        "Computer"
+                    ],
+                    NAME: "Picture Mode",
+                    VALUE: "Calibrated*",
+                    CNAME: "picture_mode",
+                    TYPE: "T_LIST_X_V1"
+                }
+            ],
+            HASHLIST: [
+                3871651898,
+                992438970
+            ],
+            URI: "/menu_native/dynamic/tv_settings/picture/picture_mode",
+            PARAMETERS: {
+                FLAT: "TRUE",
+                HELPTEXT: "FALSE",
+                HASHONLY: "FALSE"
+            }
+        };
+        let get = sinon.stub(tv.settings.picture.mode, 'get').returns(Promise.resolve(mockData));
+        return tv.settings.picture.mode.set("Non-existent picture mode").then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+            get.restore();
+        });
+    });
+
+    it('picture mode set() should call api', () => {
+        mockData = {
+            STATUS: {
+                RESULT: "SUCCESS",
+                DETAIL: "Success"
+            },
+            ITEMS: [
+                {
+                    HASHVAL: 3817665489,
+                    ELEMENTS: [
+                        "Standard",
+                        "Calibrated",
+                        "Vivid",
+                        "Game",
+                        "Computer"
+                    ],
+                    NAME: "Picture Mode",
+                    VALUE: "Calibrated*",
+                    CNAME: "picture_mode",
+                    TYPE: "T_LIST_X_V1"
+                }
+            ],
+            HASHLIST: [
+                3871651898,
+                992438970
+            ],
+            URI: "/menu_native/dynamic/tv_settings/picture/picture_mode",
+            PARAMETERS: {
+                FLAT: "TRUE",
+                HELPTEXT: "FALSE",
+                HASHONLY: "FALSE"
+            }
+        };
+        let get = sinon.stub(tv.settings.picture.mode, 'get').returns(Promise.resolve(mockData));
+        let set = sinon.stub(request, 'put').returns(Promise.resolve({}));
+
+        return tv.settings.picture.mode.set('Standard').then(() => {
+            expect(set.called).to.be.true;
+            expect(set.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_mode');
+    
+            get.restore();
+            set.restore();
+        });
+    });
+
+
     it('picture color calibration should call api', () => {
         mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
