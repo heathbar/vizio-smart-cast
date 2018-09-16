@@ -342,7 +342,7 @@ let SMARTCAST = function smartcast(host, authKey) {
 
                             let pictureModeValue = pictureMode.ELEMENTS.find(i => i === value);
                             if (!pictureModeValue) {
-                                reject('Picture mode: ' + value + ' not found');
+                                reject('value out of range');
                                 return;
                             }
                             
@@ -400,8 +400,8 @@ let SMARTCAST = function smartcast(host, authKey) {
                         ];
                         
                         // Accept any value that matches the integer index or string value
-                        if (!powerOffValues.includes(t => t.value === value || t.index === value)) {
-                            reject('invalid value: ' + value);
+                        if (powerOffValues.find(t => t.value === value || t.index === value) === undefined) {
+                            reject('value out of range');
                             return;
                         }
                         
@@ -445,7 +445,7 @@ let SMARTCAST = function smartcast(host, authKey) {
                         
                         // Accept any value that matches the integer index or string value
                         if (timerValues.find(t => t.value === value || t.index === value) === undefined) {
-                            reject('invalid value: ' + value);
+                            reject('value out of range');
                             return;
                         }
                         
