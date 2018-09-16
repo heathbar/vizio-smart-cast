@@ -240,6 +240,58 @@ describe('#smart-cast-settings-tests', () => {
     it('timers sleepTimer set() should not accept integers outside of 0-5', () => {
         return tv.settings.timers.sleepTimer.set(6).then(() => {
             throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+        });
+    });
+
+    it('timers sleepTimer set() should not accept invalid string values', () => {
+        return tv.settings.timers.autoPowerOffTimer.set("15 minutes").then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+        });
+    });
+
+    it('timers sleepTimer set() should call api', () => {
+        mockData = {
+            STATUS: {
+                RESULT: "SUCCESS",
+                DETAIL: "Success"
+            },
+            ITEMS: [
+                {
+                    INDEX: 0,
+                    HASHVAL: 1763227135,
+                    NAME: "Sleep Timer",
+                    VALUE: "Off",
+                    CNAME: "sleep_timer",
+                    TYPE: "T_LIST_V1"
+                }
+            ],
+            HASHLIST: [
+                2984886335,
+                992438970
+            ],
+            URI: "/menu_native/dynamic/tv_settings/timers/sleep_timer",
+            PARAMETERS: {
+                FLAT: "TRUE",
+                HELPTEXT: "FALSE",
+                HASHONLY: "FALSE"
+            }
+        };
+        let get = sinon.stub(tv.settings.timers.sleepTimer, 'get').returns(Promise.resolve(mockData));
+        let set = sinon.stub(request, 'put').returns(Promise.resolve({}));
+
+        return tv.settings.timers.sleepTimer.set(0).then(() => {
+            expect(set.called).to.be.true;
+            expect(set.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers/sleep_timer');
+    
+            get.restore();
+            set.restore();
+        });
+    });
+
     it('timers blankScreen get() should call api', () => {
         mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
