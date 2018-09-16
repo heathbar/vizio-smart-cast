@@ -6,10 +6,11 @@ let expect = require('chai').expect,
     smartcast = require('../index');
 
 describe('#smart-cast-settings-tests', () => {
+    let tv = new smartcast('0.0.0.0'),
+    mockData = {};
 
     it('picture should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.get();
@@ -21,8 +22,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('picture size should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.size.get();
@@ -34,8 +34,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('picture position should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.position.get();
@@ -47,8 +46,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('picture modeEdit should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.modeEdit.get();
@@ -73,8 +71,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('picture color calibration should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.color.calibration.get();
@@ -86,8 +83,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('picture color tuner should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.color.tuner.get();
@@ -99,8 +95,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('picture calibrationTests should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.calibrationTests.get();
@@ -112,8 +107,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('audio should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.audio.get();
@@ -125,8 +119,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('timers should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.timers.get();
@@ -177,8 +170,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('network should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.network.get();
@@ -190,8 +182,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('channels should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.channels.get();
@@ -203,8 +194,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('closedCaptions should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.closedCaptions.get();
@@ -216,8 +206,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('devices should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.devices.get();
@@ -229,8 +218,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('system should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.system.get();
@@ -242,8 +230,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('system information should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.system.information.get();
@@ -255,8 +242,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('system information tv should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.system.information.tv.get();
@@ -268,8 +254,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('system information tuner should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.system.information.tuner.get();
@@ -281,8 +266,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('system information network should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.system.information.network.get();
@@ -294,8 +278,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('system information uli should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.system.information.uli.get();
@@ -307,8 +290,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('mobileDevices should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.mobileDevices.get();
@@ -320,8 +302,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('cast should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.cast.get();
