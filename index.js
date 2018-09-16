@@ -14,7 +14,7 @@ let sendRequest = (method, url, authKey, data) => {
 
     if (authKey) {
         req.headers = {
-            'AUTH': authKey
+            AUTH: authKey
         };
     }
 
@@ -92,8 +92,8 @@ let SMARTCAST = function smartcast(host, authKey) {
             _deviceId = deviceId || 'node-app-' + new Date().getTime();
 
             let data = {
-                "DEVICE_NAME": _deviceName,
-                "DEVICE_ID": _deviceId
+                DEVICE_NAME: _deviceName,
+                DEVICE_ID: _deviceId
             };
             return sendRequest('put', host + '/pairing/start', null, data).then((data) => {
                 if (data && data.STATUS && data.STATUS.RESULT === 'SUCCESS') {
@@ -116,10 +116,10 @@ let SMARTCAST = function smartcast(host, authKey) {
          */
         pair: (pin) => {
             let data = {
-                "DEVICE_ID": _deviceId,
-                "CHALLENGE_TYPE": 1,
-                "RESPONSE_VALUE": pin,
-                "PAIRING_REQ_TOKEN": _pairingRequestToken
+                DEVICE_ID: _deviceId,
+                CHALLENGE_TYPE: 1,
+                RESPONSE_VALUE: pin,
+                PAIRING_REQ_TOKEN: _pairingRequestToken
             };
             return sendRequest('put', host + '/pairing/pair', null, data).then((data) => {
                 if (data && data.STATUS.RESULT === 'SUCCESS') {
@@ -170,9 +170,9 @@ let SMARTCAST = function smartcast(host, authKey) {
                         }
 
                         let data = {
-                            "REQUEST": "MODIFY",
-                            "VALUE": inputName,
-                            "HASHVAL": currentInput.ITEMS[0].HASHVAL
+                            REQUEST: "MODIFY",
+                            VALUE: inputName,
+                            HASHVAL: currentInput.ITEMS[0].HASHVAL
                         };
 
                         sendRequest('put', host + '/menu_native/dynamic/tv_settings/devices/current_input', _authKey, data).then(resolve).catch(reject)
@@ -209,9 +209,9 @@ let SMARTCAST = function smartcast(host, authKey) {
                         }
 
                         let data = {
-                            'REQUEST': 'MODIFY',
-                            'HASHVAL': volume.HASHVAL,
-                            'VALUE': Math.round(value)
+                            REQUEST: 'MODIFY',
+                            HASHVAL: volume.HASHVAL,
+                            VALUE: Math.round(value)
                         };
                         sendRequest('put', host + '/menu_native/dynamic/tv_settings/audio/volume', _authKey, data).then(resolve).catch(reject)
                     }).catch(reject);
@@ -347,9 +347,9 @@ let SMARTCAST = function smartcast(host, authKey) {
                             }
                             
                             let data = {
-                                'REQUEST': 'MODIFY',
-                                'HASHVAL': pictureMode.HASHVAL,
-                                'VALUE': pictureModeValue
+                                REQUEST: 'MODIFY',
+                                HASHVAL: pictureMode.HASHVAL,
+                                VALUE: pictureModeValue
                             };
                             sendRequest('put', host + '/menu_native/dynamic/tv_settings/picture/picture_mode', _authKey, data).then(resolve).catch(reject);
                         }).catch(reject);
@@ -419,9 +419,9 @@ let SMARTCAST = function smartcast(host, authKey) {
                             }
                             
                             let data = {
-                                'REQUEST': 'MODIFY',
-                                'HASHVAL': autoPowerOffTimer.HASHVAL,
-                                'VALUE': value
+                                REQUEST: 'MODIFY',
+                                HASHVAL: autoPowerOffTimer.HASHVAL,
+                                VALUE: value
                             };
                             sendRequest('put', host + '/menu_native/dynamic/tv_settings/timers/auto_power_off_timer', _authKey, data).then(resolve).catch(reject);
                         }).catch(reject);
@@ -463,9 +463,9 @@ let SMARTCAST = function smartcast(host, authKey) {
                             }
                             
                             let data = {
-                                'REQUEST': 'MODIFY',
-                                'HASHVAL': sleepTimer.HASHVAL,
-                                'VALUE': value
+                                REQUEST: 'MODIFY',
+                                HASHVAL: sleepTimer.HASHVAL,
+                                VALUE: value
                             };
                             sendRequest('put', host + '/menu_native/dynamic/tv_settings/timers/sleep_timer', _authKey, data).then(resolve).catch(reject);
                         }).catch(reject);
@@ -486,9 +486,9 @@ let SMARTCAST = function smartcast(host, authKey) {
                             }
 
                             let data = {
-                                'REQUEST': 'MODIFY',
-                                'HASHVAL': blankScreen.HASHVAL,
-                                'VALUE': 'T_ACTION_V1' // Any string value would suffice
+                                REQUEST: 'MODIFY',
+                                HASHVAL: blankScreen.HASHVAL,
+                                VALUE: 'T_ACTION_V1' // Any string value would suffice
                             };
                             sendRequest('put', host + '/menu_native/dynamic/tv_settings/timers/blank_screen', _authKey, data).then(resolve).catch(reject)
                         }).catch(reject);
