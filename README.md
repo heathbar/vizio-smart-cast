@@ -1389,5 +1389,4 @@ This was all made possible by the reference guide here: https://github.com/exiva
 ## License
 
 ISC License
-Permission to use, copy, modify, and/or d*Note:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
-istribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
