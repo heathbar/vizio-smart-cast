@@ -1067,11 +1067,13 @@ tv.settings.timers.sleepTimer.get().then(data => console.log(data));
 
 Sets sleep timer
 
-#### Accepts
+#### Arguments
+
+1. `value` *(string|number)*: The value of the sleep timer as a string value or the numbered index.
 
 > NOTE: library will not allow you to set value outside of these parameters to prevent potentially bricking your display.
 
-| Integer | String          | Action                |
+| Number  | String          | Action                |
 | ------- | --------------- | --------------------- |
 | `0`     | `'Off'`         | turns off sleep timer |
 | `1`     | `'30 minutes'`  | 30 minutes            |
@@ -1115,7 +1117,9 @@ tv.settings.timers.autoPowerOffTimer.get().then(data => console.log(data));
 
 Sets auto power off timer setting. By default, it is set to 10 minutes. It can be disabled by setting to 'Off'.
 
-#### Accepts
+#### Arguments
+
+1. `value` *(number|string)*: The value of the autoPowerOffTimer setting as the string value or the numbered index.
 
 > NOTE: library will not allow you to set value outside of these parameters to prevent potentially bricking your display.
 
