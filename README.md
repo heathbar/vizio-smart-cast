@@ -12,7 +12,7 @@ tv.power.currentMode().then((data) => {
     console.log(data);
 });
 // example output:
-// {'STATUS': {'RESULT': 'SUCCESS', 'DETAIL': 'Success'}, 'ITEMS': [{'CNAME': 'power_mode', 'TYPE': 'T_VALUE_V1', 'NAME': 'Power Mode', 'VALUE': 0}], 'URI': '/state/device/power_mode'}
+// {"STATUS": {"RESULT": "SUCCESS", "DETAIL": "Success"}, "ITEMS": [{"CNAME": "power_mode", "TYPE": "T_VALUE_V1", "NAME": "Power Mode", "VALUE": 0}], "URI": "/state/device/power_mode"}
 ```
 
 ## Installation
@@ -47,10 +47,10 @@ smartcast.discover(device => {
 
 // Example output:
 // {
-//     ip: '192.168.0.131',
-//     name: 'Living Room',
-//     manufacturer: 'VIZIO',
-//     model: 'P65-C1'
+//     ip: "192.168.0.131",
+//     name: "Living Room",
+//     manufacturer: "VIZIO",
+//     model: "P65-C1"
 // }
 ```
 
@@ -92,7 +92,7 @@ tv.power.currentMode().then(data => {
   console.log(data);
 });
 // example output:
-// {'STATUS': {'RESULT': 'SUCCESS', 'DETAIL': 'Success'}, 'ITEMS': [{'CNAME': 'power_mode', 'TYPE': 'T_VALUE_V1', 'NAME': 'Power Mode', 'VALUE': 0}], 'URI': '/state/device/power_mode'}
+// {"STATUS": {"RESULT": "SUCCESS", "DETAIL": "Success"}, "ITEMS": [{"CNAME": "power_mode", "TYPE": "T_VALUE_V1", "NAME": "Power Mode", "VALUE": 0}], "URI": "/state/device/power_mode"}
 ```
 
 ### `pairing.initiate([deviceName, [deviceId]])`
@@ -199,17 +199,17 @@ tv.input.current().then(data => {
   console.log('response: ', data);
 });
 // Example output
-// { STATUS: { RESULT: 'SUCCESS', DETAIL: 'Success' },
+// { STATUS: { RESULT: "SUCCESS", DETAIL: "Success" },
 //  ITEMS:
 //   [ { HASHVAL: 1234123412,
-//       NAME: 'Current Input',
-//       ENABLED: 'FALSE',
-//       VALUE: 'HDMI-1',
-//       CNAME: 'current_input',
-//       TYPE: 'T_STRING_V1' } ],
+//       NAME: "Current Input",
+//       ENABLED: "FALSE",
+//       VALUE: "HDMI-1",
+//       CNAME: "current_input",
+//       TYPE: "T_STRING_V1" } ],
 //  HASHLIST: [ 0928345790, 9087654321 ],
-//  URI: '/menu_native/dynamic/tv_settings/devices/current_input',
-//  PARAMETERS: { FLAT: 'TRUE', HELPTEXT: 'FALSE', HASHONLY: 'FALSE' } }
+//  URI: "/menu_native/dynamic/tv_settings/devices/current_input",
+//  PARAMETERS: { FLAT: "TRUE", HELPTEXT: "FALSE", HASHONLY: "FALSE" } }
 ```
 
 ### `input.list()`
@@ -232,98 +232,98 @@ tv.input.list().then(data => {
 });
 // Example output
 // {
-//     'STATUS': {
-//         'RESULT': 'SUCCESS',
-//         'DETAIL': 'Success'
+//     "STATUS": {
+//         "RESULT": "SUCCESS",
+//         "DETAIL": "Success"
 //     },
-//     'HASHLIST': [
+//     "HASHLIST": [
 //         1234567890,
 //         0987654321,
 //         9999999999
 //     ],
-//     'GROUP': 'G_DEVICES',
-//     'NAME': 'Name Input',
-//     'PARAMETERS': {
-//         'FLAT': 'TRUE',
-//         'HELPTEXT': 'FALSE',
-//         'HASHONLY': 'FALSE'
+//     "GROUP": "G_DEVICES",
+//     "NAME": "Name Input",
+//     "PARAMETERS": {
+//         "FLAT": "TRUE",
+//         "HELPTEXT": "FALSE",
+//         "HASHONLY": "FALSE"
 //     },
-//     'ITEMS': [
+//     "ITEMS": [
 //         {
-//         'HASHVAL': 1111111111,
-//         'CNAME': 'cast',
-//         'NAME': 'CAST',
-//         'TYPE': 'T_DEVICE_V1',
-//         'READONLY': 'TRUE',
-//         'VALUE': {
-//             'NAME': 'CAST',
-//             'METADATA': ''
+//         "HASHVAL": 1111111111,
+//         "CNAME": "cast",
+//         "NAME": "CAST",
+//         "TYPE": "T_DEVICE_V1",
+//         "READONLY": "TRUE",
+//         "VALUE": {
+//             "NAME": "CAST",
+//             "METADATA": ""
 //         }
 //         },
 //         {
-//         'HASHVAL': 2222222222,
-//         'CNAME': 'hdmi1',
-//         'TYPE': 'T_DEVICE_V1',
-//         'NAME': 'HDMI-1',
-//         'VALUE': {
-//             'NAME': 'BLU-RAY',
-//             'METADATA': ''
+//         "HASHVAL": 2222222222,
+//         "CNAME": "hdmi1",
+//         "TYPE": "T_DEVICE_V1",
+//         "NAME": "HDMI-1",
+//         "VALUE": {
+//             "NAME": "BLU-RAY",
+//             "METADATA": ""
 //         }
 //         },
 //         {
-//         'HASHVAL': 3333333333,
-//         'CNAME': 'hdmi2',
-//         'TYPE': 'T_DEVICE_V1',
-//         'NAME': 'HDMI-2',
-//         'VALUE': {
-//             'NAME': 'XBOX 360',
-//             'METADATA': ''
+//         "HASHVAL": 3333333333,
+//         "CNAME": "hdmi2",
+//         "TYPE": "T_DEVICE_V1",
+//         "NAME": "HDMI-2",
+//         "VALUE": {
+//             "NAME": "XBOX 360",
+//             "METADATA": ""
 //         }
 //         },
 //         {
-//         'HASHVAL': 4444444444,
-//         'CNAME': 'hdmi3',
-//         'TYPE': 'T_DEVICE_V1',
-//         'NAME': 'HDMI-3',
-//         'VALUE': {
-//             'NAME': 'XBOX ONE',
-//             'METADATA': ''
+//         "HASHVAL": 4444444444,
+//         "CNAME": "hdmi3",
+//         "TYPE": "T_DEVICE_V1",
+//         "NAME": "HDMI-3",
+//         "VALUE": {
+//             "NAME": "XBOX ONE",
+//             "METADATA": ""
 //         }
 //         },
 //         {
-//         'HASHVAL': 5555555555,
-//         'CNAME': 'hdmi4',
-//         'TYPE': 'T_DEVICE_V1',
-//         'NAME': 'HDMI-4',
-//         'VALUE': {
-//             'NAME': 'PLAYSTATION',
-//             'METADATA': ''
+//         "HASHVAL": 5555555555,
+//         "CNAME": "hdmi4",
+//         "TYPE": "T_DEVICE_V1",
+//         "NAME": "HDMI-4",
+//         "VALUE": {
+//             "NAME": "PLAYSTATION",
+//             "METADATA": ""
 //         }
 //         },
 //         {
-//         'HASHVAL': 66666666666,
-//         'CNAME': 'hdmi5',
-//         'TYPE': 'T_DEVICE_V1',
-//         'NAME': 'HDMI-5',
-//         'VALUE': {
-//             'NAME': '',
-//             'METADATA': ''
+//         "HASHVAL": 66666666666,
+//         "CNAME": "hdmi5",
+//         "TYPE": "T_DEVICE_V1",
+//         "NAME": "HDMI-5",
+//         "VALUE": {
+//             "NAME": "",
+//             "METADATA": ""
 //         }
 //         },
 //         {
-//         'HASHVAL': 7777777777,
-//         'CNAME': 'comp',
-//         'TYPE': 'T_DEVICE_V1',
-//         'NAME': 'COMP',
-//         'VALUE': {
-//             'NAME': '',
-//             'METADATA': ''
+//         "HASHVAL": 7777777777,
+//         "CNAME": "comp",
+//         "TYPE": "T_DEVICE_V1",
+//         "NAME": "COMP",
+//         "VALUE": {
+//             "NAME": "",
+//             "METADATA": ""
 //         }
 //         }
 //     ],
-//     'URI': '/menu_native/dynamic/tv_settings/devices/name_input',
-//     'CNAME': 'name_input',
-//     'TYPE': 'T_MENU_V1'
+//     "URI": "/menu_native/dynamic/tv_settings/devices/name_input",
+//     "CNAME": "name_input",
+//     "TYPE": "T_MENU_V1"
 // };
 ```
 
