@@ -156,7 +156,7 @@ tv.pairing.initiate().then(response => {
 
 Skip the pairing process and use the specified token instead. On first run, a call to `pairing.pair(...)` is required to obtain an auth token. On successive runs, use this method to skip the pairing process.
 
-_NOTE:_ the authorization token can also be specified in the constructor. Either way, the libarary remembers it for the remainder of the smartcast instance.
+*NOTE:* the authorization token can also be specified in the constructor. Either way, the libarary remembers it for the remainder of the smartcast instance.
 
 #### Arguments
 
@@ -335,7 +335,7 @@ Set the current input to the specified name. Name can be either the built-in nam
 
 *(`Promise`)*: A promise of the http response from the smartcast device
 
-_NOTE:_ the HTTP call may return, and thus the promise may resolve before the smartcast device has finished changing inputs. For that reason, it is possible to receive the old value from tv.input.current() if you call it immediately after the promise from tv.input.set(...) resolves.
+*NOTE:* the HTTP call may return, and thus the promise may resolve before the smartcast device has finished changing inputs. For that reason, it is possible to receive the old value from tv.input.current() if you call it immediately after the promise from tv.input.set(...) resolves.
 
 #### Example
 
@@ -527,7 +527,7 @@ tv.control.channel.previous();
 ### `control.power.on()`
 
 Turn on the device.
-_Note:_ some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
+*NOTE:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
 
 #### Returns
 
@@ -562,7 +562,7 @@ tv.control.power.off();
 ### `control.power.toggle()`
 
 Toggle power to the device.
-_Note:_ some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
+*NOTE:* some devices may require you to send a WOL magic packet to first wake-up the device. Eco-mode is not supported.
 
 #### Returns
 
@@ -614,7 +614,7 @@ tv.control.media.seek.back();
 ### `control.media.play()`
 
 Plays the current media
-_Note:_ Some applications will toggle play / pause
+*NOTE:* Some applications will toggle play / pause
 
 #### Returns
 
@@ -632,7 +632,7 @@ tv.control.media.play();
 ### `control.media.pause()`
 
 Pauses the current media
-_Note:_ Some applications will toggle play / pause
+*NOTE:* Some applications will toggle play / pause
 
 #### Returns
 
@@ -650,7 +650,7 @@ tv.control.media.pause();
 ### `control.media.cc()`
 
 Sends closed captioning key
-_Note:_ Some applications require sending this command to switch between languages
+*NOTE:* Some applications require sending this command to switch between languages
 The arrow keys should also work for this.
 
 #### Returns
