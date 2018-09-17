@@ -29,13 +29,13 @@ Discover smartcast devices on the local network
 
 #### Arguments
 
-1. `success` _(Function)_: callback to execute when a device is found
-1. `error` _(Function)_: callback to execute when an error occurs
-1. `timeout` _(number)_: number of milliseconds to wait for responses, defaults to 4000ms
+1. `success` *(Function)*: callback to execute when a device is found
+1. `error` *(Function)*: callback to execute when an error occurs
+1. `timeout` *(number)*: number of milliseconds to wait for responses, defaults to 4000ms
 
 #### Returns
 
-_(`void`)_: nothing important
+*(`void`)*: nothing important
 
 #### Example
 
@@ -60,12 +60,12 @@ Instatiates a new smartcast device
 
 #### Arguments
 
-1. `host` _(string)_: Host IP address (and optionally PORT) of the smartcast device
-1. `[authToken]` _(string)_: Authorization token from a previous session. Auth tokens are returned from `pairing.pair(...)`
+1. `host` *(string)*: Host IP address (and optionally PORT) of the smartcast device
+1. `[authToken]` *(string)*: Authorization token from a previous session. Auth tokens are returned from `pairing.pair(...)`
 
 #### Returns
 
-_(`smartcast`)_: A new smartcast instance
+*(`smartcast`)*: A new smartcast instance
 
 #### Example
 
@@ -80,7 +80,7 @@ Fetch current tv power mode.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -101,12 +101,12 @@ Initiate pairing with a smartcast device. If successful, a pin will be displayed
 
 #### Arguments
 
-1. `[deviceName]` _(string='node-app-1234567890')_: Name of the connecting device/app
-1. `[deviceId]` _(string='node-app-1234567890')_: ID of the connecting device/app
+1. `[deviceName]` *(string='node-app-1234567890')*: Name of the connecting device/app
+1. `[deviceId]` *(string='node-app-1234567890')*: ID of the connecting device/app
 
 #### Returns
 
-_(`Promise`)_: A promise containing the response from the smartcast device
+*(`Promise`)*: A promise containing the response from the smartcast device
 
 #### Example
 
@@ -118,11 +118,11 @@ Provide a user-entered pin to the smartcast device. The smartcast device will re
 
 #### Arguments
 
-1. `pin` _(string)_: The pin displayed on the smartcast device after a successful `pairing.initiate()` call
+1. `pin` *(string)*: The pin displayed on the smartcast device after a successful `pairing.initiate()` call
 
 #### Returns
 
-_(`Promise`)_: A promise containing the response from the smartcast device, including the auth token to use for future requests
+*(`Promise`)*: A promise containing the response from the smartcast device, including the auth token to use for future requests
 
 #### Example
 
@@ -160,11 +160,11 @@ _NOTE:_ the authorization token can also be specified in the constructor. Either
 
 #### Arguments
 
-1. `token` _(string)_: The token retrieved from a successful `pairing.pair(...)` call
+1. `token` *(string)*: The token retrieved from a successful `pairing.pair(...)` call
 
 #### Returns
 
-_(`void`)_: Nothing
+*(`void`)*: Nothing
 
 #### Example
 
@@ -186,7 +186,7 @@ Fetch current tv input.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -218,7 +218,7 @@ Fetch the list of all inputs
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -333,7 +333,7 @@ Set the current input to the specified name. Name can be either the built-in nam
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 _NOTE:_ the HTTP call may return, and thus the promise may resolve before the smartcast device has finished changing inputs. For that reason, it is possible to receive the old value from tv.input.current() if you call it immediately after the promise from tv.input.set(...) resolves.
 
@@ -356,7 +356,7 @@ Turn volume down one step
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -373,7 +373,7 @@ Turn volume up one step
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -390,11 +390,11 @@ Specify a specific volume level
 
 #### Arguments
 
-1. `value` _(number)_: The volume level to set [0-100]
+1. `value` *(number)*: The volume level to set [0-100]
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -411,7 +411,7 @@ Mute the volume
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -428,7 +428,7 @@ Unmute the volume
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -445,7 +445,7 @@ Toggle muting of the volume
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -462,7 +462,7 @@ Select the next input
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -479,7 +479,7 @@ Move down one channel
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -496,7 +496,7 @@ Move up one channel
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -513,7 +513,7 @@ Move to the previous channel
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -531,7 +531,7 @@ _Note:_ some devices may require you to send a WOL magic packet to first wake-up
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -548,7 +548,7 @@ Turn off the device
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -566,7 +566,7 @@ _Note:_ some devices may require you to send a WOL magic packet to first wake-up
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -583,7 +583,7 @@ Seeks the current media forward
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -600,7 +600,7 @@ Seeks the current media backwards
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -618,7 +618,7 @@ _Note:_ Some applications will toggle play / pause
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -636,7 +636,7 @@ _Note:_ Some applications will toggle play / pause
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -655,7 +655,7 @@ The arrow keys should also work for this.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -672,7 +672,7 @@ Up arrow key used to navigate.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -689,7 +689,7 @@ Down arrow key used to navigate.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -706,7 +706,7 @@ Left arrow key used to navigate.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -723,7 +723,7 @@ Right arrow key used to navigate.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -740,7 +740,7 @@ Ok key used for navigating.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -757,7 +757,7 @@ Navigate back in an application.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -774,7 +774,7 @@ Exit an application.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -791,7 +791,7 @@ Launch the on-screen menu.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -808,7 +808,7 @@ Displays the tuner information.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -825,7 +825,7 @@ Launch the smartcast application.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -842,13 +842,13 @@ Send a key command to the smartcast device.
 
 #### Arguments
 
-1. `codeset` _(number)_: The codeset to send. See https://github.com/exiva/Vizio_SmartCast_API
-1. `code` _(number)_: The code to send. See https://github.com/exiva/Vizio_SmartCast_API
-1. `[action]` _(string=KEYPRESS)_: The action to send. One of: `KEYDOWN`, `KEYUP`, `KEYPRESS`.
+1. `codeset` *(number)*: The codeset to send. See https://github.com/exiva/Vizio_SmartCast_API
+1. `code` *(number)*: The code to send. See https://github.com/exiva/Vizio_SmartCast_API
+1. `[action]` *(string=KEYPRESS)*: The action to send. One of: `KEYDOWN`, `KEYUP`, `KEYPRESS`.
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -865,7 +865,7 @@ Get picture settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -882,7 +882,7 @@ Get picture size settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -899,7 +899,7 @@ Get picture position settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -916,7 +916,7 @@ Get mode settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -933,7 +933,7 @@ Get picture mode
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -950,7 +950,7 @@ Set picture mode
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -967,7 +967,7 @@ Get color calibration settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -984,7 +984,7 @@ Get color tuner settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1001,7 +1001,7 @@ Get calibration test settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1018,7 +1018,7 @@ Get audio settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1035,7 +1035,7 @@ Get timer settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1052,7 +1052,7 @@ Get sleep timer settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1082,7 +1082,7 @@ Sets sleep timer
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1100,7 +1100,7 @@ Get auto power off timer settings. With no video input (DVD player falls asleep)
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1126,7 +1126,7 @@ Sets auto power off timer setting. By default, it is set to 10 minutes. It can b
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1145,7 +1145,7 @@ used internally to trigger the action. See `execute()` below to perform the acti
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1162,7 +1162,7 @@ Executes the blank screen action to turn off the display but continue playing th
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1180,7 +1180,7 @@ Get network settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1197,7 +1197,7 @@ Get channels settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1214,7 +1214,7 @@ Get closed caption settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1231,7 +1231,7 @@ Get devices settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1248,7 +1248,7 @@ Get system settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1265,7 +1265,7 @@ Get system information settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1282,7 +1282,7 @@ Get tv information
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1299,7 +1299,7 @@ Get tuner information
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1316,7 +1316,7 @@ Get network information
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1333,7 +1333,7 @@ Get ULI information
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1350,7 +1350,7 @@ Get mobile device settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
@@ -1367,7 +1367,7 @@ Get cast settings
 
 #### Returns
 
-_(`Promise`)_: A promise of the http response from the smartcast device
+*(`Promise`)*: A promise of the http response from the smartcast device
 
 #### Example
 
