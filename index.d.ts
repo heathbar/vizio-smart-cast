@@ -48,14 +48,31 @@ interface SmartcastControlPower {
     toggle(): Promise<any>;
 }
 
+interface SmartcastTimers {
+    get(): Promise<any>;
+    sleepTimer: SmartcastGetSet;
+    autoPowerOffTimer: SmartcastGetSet;
+    blankScreen: SmartcastGetExecute;
+}
+
 interface SmartcastGet {
     get(): Promise<any>;
+}
+
+interface SmartcastGetSet {
+    get(): Promise<any>;
+    set(value: string): Promise<any>;
+}
+
+interface SmartcastGetExecute {
+    get(): Promise<any>;
+    execute(): Promise<any>;
 }
 
 interface SmartcastSettings {
     picture: SmartcastSettingsPicture;
     audio: SmartcastGet;
-    timers: SmartcastGet;
+    timers: SmartcastTimers;
     network: SmartcastGet;
     channels: SmartcastGet;
     closedCaptions: SmartcastGet;
@@ -70,6 +87,7 @@ interface SmartcastSettingsPicture {
     size: SmartcastGet;
     position: SmartcastGet;
     modeEdit: SmartcastGet;
+    mode: SmartcastGetSet;
     color: SmartcastSettingsPictureColor;
     calibrationTests: SmartcastGet;
 }

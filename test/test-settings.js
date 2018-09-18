@@ -6,10 +6,11 @@ let expect = require('chai').expect,
     smartcast = require('../index');
 
 describe('#smart-cast-settings-tests', () => {
+    let tv = new smartcast('0.0.0.0'),
+    mockData = {};
 
     it('picture should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.get();
@@ -21,8 +22,7 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('picture size should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
         tv.settings.picture.size.get();
@@ -34,250 +34,484 @@ describe('#smart-cast-settings-tests', () => {
     });
 
     it('picture position should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.picture.position.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_position');
-
-        request.get.restore();
+        return tv.settings.picture.position.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_position');
+    
+            request.get.restore();
+        });
     });
 
     it('picture modeEdit should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.picture.modeEdit.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_mode_edit');
+        return tv.settings.picture.modeEdit.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_mode_edit');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
-    it('picture color calibration should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+    it('picture mode get() should call api', () => {
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.picture.color.calibration.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration');
+        return tv.settings.picture.mode.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_mode');
 
-        request.get.restore();
+            request.get.restore();
+        });
+    });
+
+    it('picture mode set() should not accept non-string values', () => {
+        return tv.settings.picture.mode.set(0).then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value must be a string')
+        });
+    });
+
+    it('picture mode set() should not accept invalid string values', () => {
+        mockData = {
+            STATUS: {
+                RESULT: "SUCCESS",
+                DETAIL: "Success"
+            },
+            ITEMS: [
+                {
+                    HASHVAL: 3817665489,
+                    ELEMENTS: [
+                        "Standard",
+                        "Calibrated",
+                        "Vivid",
+                        "Game",
+                        "Computer"
+                    ],
+                    NAME: "Picture Mode",
+                    VALUE: "Calibrated*",
+                    CNAME: "picture_mode",
+                    TYPE: "T_LIST_X_V1"
+                }
+            ],
+            HASHLIST: [
+                3871651898,
+                992438970
+            ],
+            URI: "/menu_native/dynamic/tv_settings/picture/picture_mode",
+            PARAMETERS: {
+                FLAT: "TRUE",
+                HELPTEXT: "FALSE",
+                HASHONLY: "FALSE"
+            }
+        };
+        let get = sinon.stub(tv.settings.picture.mode, 'get').returns(Promise.resolve(mockData));
+        return tv.settings.picture.mode.set("Non-existent picture mode").then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+            get.restore();
+        });
+    });
+
+    it('picture mode set() should call api', () => {
+        mockData = {
+            STATUS: {
+                RESULT: "SUCCESS",
+                DETAIL: "Success"
+            },
+            ITEMS: [
+                {
+                    HASHVAL: 3817665489,
+                    ELEMENTS: [
+                        "Standard",
+                        "Calibrated",
+                        "Vivid",
+                        "Game",
+                        "Computer"
+                    ],
+                    NAME: "Picture Mode",
+                    VALUE: "Calibrated*",
+                    CNAME: "picture_mode",
+                    TYPE: "T_LIST_X_V1"
+                }
+            ],
+            HASHLIST: [
+                3871651898,
+                992438970
+            ],
+            URI: "/menu_native/dynamic/tv_settings/picture/picture_mode",
+            PARAMETERS: {
+                FLAT: "TRUE",
+                HELPTEXT: "FALSE",
+                HASHONLY: "FALSE"
+            }
+        };
+        let get = sinon.stub(tv.settings.picture.mode, 'get').returns(Promise.resolve(mockData));
+        let set = sinon.stub(request, 'put').returns(Promise.resolve({}));
+
+        return tv.settings.picture.mode.set('Standard').then(() => {
+            expect(set.called).to.be.true;
+            expect(set.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/picture_mode');
+    
+            get.restore();
+            set.restore();
+        });
+    });
+
+
+    it('picture color calibration should call api', () => {
+        mockData = {};
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+
+        return tv.settings.picture.color.calibration.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration');
+
+            request.get.restore();
+        });
     });
 
     it('picture color tuner should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.picture.color.tuner.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration/color_tuner');
+        return tv.settings.picture.color.tuner.get().then(() => {    
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration/color_tuner');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('picture calibrationTests should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.picture.calibrationTests.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration/calibration_tests');
+        return tv.settings.picture.calibrationTests.get().then(() => {            
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/picture/color_calibration/calibration_tests');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('audio should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.audio.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/audio');
+        return tv.settings.audio.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/audio');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('timers should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.timers.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers');
+        return tv.settings.timers.get().then(() => {    
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers');
 
-        request.get.restore();
+            request.get.restore();
+        });
+    });
+
+    it('timers sleepTimer get() should call api', () => {
+        mockData = {};
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+
+        return tv.settings.timers.sleepTimer.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers/sleep_timer');
+
+            request.get.restore();
+        });
+    });
+
+    it('timers sleepTimer set() should not accept integers outside of 0-5', () => {
+        return tv.settings.timers.sleepTimer.set(6).then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+        });
+    });
+
+    it('timers sleepTimer set() should not accept invalid string values', () => {
+        return tv.settings.timers.autoPowerOffTimer.set("15 minutes").then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+        });
+    });
+
+    it('timers sleepTimer set() should call api', () => {
+        mockData = {
+            STATUS: {
+                RESULT: "SUCCESS",
+                DETAIL: "Success"
+            },
+            ITEMS: [
+                {
+                    INDEX: 0,
+                    HASHVAL: 1763227135,
+                    NAME: "Sleep Timer",
+                    VALUE: "Off",
+                    CNAME: "sleep_timer",
+                    TYPE: "T_LIST_V1"
+                }
+            ],
+            HASHLIST: [
+                2984886335,
+                992438970
+            ],
+            URI: "/menu_native/dynamic/tv_settings/timers/sleep_timer",
+            PARAMETERS: {
+                FLAT: "TRUE",
+                HELPTEXT: "FALSE",
+                HASHONLY: "FALSE"
+            }
+        };
+        let get = sinon.stub(tv.settings.timers.sleepTimer, 'get').returns(Promise.resolve(mockData));
+        let set = sinon.stub(request, 'put').returns(Promise.resolve({}));
+
+        return tv.settings.timers.sleepTimer.set(0).then(() => {
+            expect(set.called).to.be.true;
+            expect(set.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers/sleep_timer');
+    
+            get.restore();
+            set.restore();
+        });
+    });
+
+    it('timers blankScreen get() should call api', () => {
+        mockData = {};
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+
+        return tv.settings.timers.blankScreen.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers/blank_screen');
+
+            request.get.restore();
+        });
+    });
+
+    it('timers autoPowerOffTimer get() should call api', () => {
+        sinon.stub(request, 'get').returns(Promise.resolve(mockData));
+
+        return tv.settings.timers.autoPowerOffTimer.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers/auto_power_off_timer');
+
+            request.get.restore();
+        });
+    });
+
+    it('timers autoPowerOffTimer set() should not accept integers outside of 0-1', () => {
+        return tv.settings.timers.autoPowerOffTimer.set(2).then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+        });
+    });
+
+    it('timers autoPowerOffTimer set() should not accept invalid string values', () => {
+        return tv.settings.timers.autoPowerOffTimer.set("30 minutes").then(() => {
+            throw new Error('Promise was unexpectedly resolved');
+        }, (error) => {
+            expect(error).to.contain('value out of range')
+        });
+    });
+
+    it('timers autoPowerOffTimer set() should call api', () => {
+        mockData = {
+            STATUS: {
+                RESULT: "SUCCESS",
+                DETAIL: "Success"
+            },
+            ITEMS: [
+                {
+                    INDEX: 0,
+                    HASHVAL: 3630612972,
+                    NAME: "Auto Power Off",
+                    VALUE: "10 minutes",
+                    CNAME: "auto_power_off_timer",
+                    TYPE: "T_LIST_V1"
+                }
+            ],
+            HASHLIST: [
+                2557875263,
+                2021181097
+            ],
+            URI: "/menu_native/dynamic/tv_settings/timers/auto_power_off_timer",
+            PARAMETERS: {
+                FLAT: "TRUE",
+                HELPTEXT: "FALSE",
+                HASHONLY: "FALSE"
+            }
+        };
+        let get = sinon.stub(tv.settings.timers.autoPowerOffTimer, 'get').returns(Promise.resolve(mockData));
+        let set = sinon.stub(request, 'put').returns(Promise.resolve(mockData));
+
+        return tv.settings.timers.autoPowerOffTimer.set(1).then(() => {
+            expect(set.called).to.be.true;
+            expect(set.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/timers/auto_power_off_timer');
+    
+            get.restore();
+            set.restore();
+        });
     });
 
     it('network should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.network.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/network');
+        return tv.settings.network.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/network');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('channels should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.channels.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/channels');
+        return tv.settings.channels.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/channels');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('closedCaptions should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.closedCaptions.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/closed_captions');
+        return tv.settings.closedCaptions.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/closed_captions');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('devices should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.devices.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices');
+        return tv.settings.devices.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/devices');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('system should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.system.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system');
+        return tv.settings.system.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('system information should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.system.information.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information');
+        return tv.settings.system.information.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('system information tv should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.system.information.tv.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/tv_information');
+        return tv.settings.system.information.tv.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/tv_information');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('system information tuner should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.system.information.tuner.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/tuner_information');
+        return tv.settings.system.information.tuner.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/tuner_information');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('system information network should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.system.information.network.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/network_information');
+        return tv.settings.system.information.network.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/network_information');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('system information uli should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.system.information.uli.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/uli_information');
+        return tv.settings.system.information.uli.get().then(() => {     
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/system/system_information/uli_information');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('mobileDevices should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.mobileDevices.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/mobile_devices');
+        return tv.settings.mobileDevices.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/mobile_devices');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
 
     it('cast should call api', () => {
-        let tv = new smartcast('0.0.0.0'),
-            mockData = {};
+        mockData = {};
         sinon.stub(request, 'get').returns(Promise.resolve(mockData));
 
-        tv.settings.cast.get();
-        
-        expect(request.get.called).to.be.true;
-        expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/cast');
+        return tv.settings.cast.get().then(() => {
+            expect(request.get.called).to.be.true;
+            expect(request.get.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/menu_native/dynamic/tv_settings/cast');
 
-        request.get.restore();
+            request.get.restore();
+        });
     });
     
 });

@@ -14,7 +14,7 @@ let sendRequest = (method, url, authKey, data) => {
 
     if (authKey) {
         req.headers = {
-            'AUTH': authKey
+            AUTH: authKey
         };
     }
 
@@ -92,8 +92,8 @@ let SMARTCAST = function smartcast(host, authKey) {
             _deviceId = deviceId || 'node-app-' + new Date().getTime();
 
             let data = {
-                "DEVICE_NAME": _deviceName,
-                "DEVICE_ID": _deviceId
+                DEVICE_NAME: _deviceName,
+                DEVICE_ID: _deviceId
             };
             return sendRequest('put', host + '/pairing/start', null, data).then((data) => {
                 if (data && data.STATUS && data.STATUS.RESULT === 'SUCCESS') {
@@ -116,10 +116,10 @@ let SMARTCAST = function smartcast(host, authKey) {
          */
         pair: (pin) => {
             let data = {
-                "DEVICE_ID": _deviceId,
-                "CHALLENGE_TYPE": 1,
-                "RESPONSE_VALUE": pin,
-                "PAIRING_REQ_TOKEN": _pairingRequestToken
+                DEVICE_ID: _deviceId,
+                CHALLENGE_TYPE: 1,
+                RESPONSE_VALUE: pin,
+                PAIRING_REQ_TOKEN: _pairingRequestToken
             };
             return sendRequest('put', host + '/pairing/pair', null, data).then((data) => {
                 if (data && data.STATUS.RESULT === 'SUCCESS') {
@@ -170,9 +170,9 @@ let SMARTCAST = function smartcast(host, authKey) {
                         }
 
                         let data = {
-                            "REQUEST": "MODIFY",
-                            "VALUE": inputName,
-                            "HASHVAL": currentInput.ITEMS[0].HASHVAL
+                            REQUEST: "MODIFY",
+                            VALUE: inputName,
+                            HASHVAL: currentInput.ITEMS[0].HASHVAL
                         };
 
                         sendRequest('put', host + '/menu_native/dynamic/tv_settings/devices/current_input', _authKey, data).then(resolve).catch(reject)
@@ -209,9 +209,9 @@ let SMARTCAST = function smartcast(host, authKey) {
                         }
 
                         let data = {
-                            'REQUEST': 'MODIFY',
-                            'HASHVAL': volume.HASHVAL,
-                            'VALUE': Math.round(value)
+                            REQUEST: 'MODIFY',
+                            HASHVAL: volume.HASHVAL,
+                            VALUE: Math.round(value)
                         };
                         sendRequest('put', host + '/menu_native/dynamic/tv_settings/audio/volume', _authKey, data).then(resolve).catch(reject)
                     }).catch(reject);
@@ -322,6 +322,40 @@ let SMARTCAST = function smartcast(host, authKey) {
                     return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_position', _authKey);
                 }
             },
+            mode: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_mode', _authKey);
+                },
+                set: (value) => {
+                    return new Promise((resolve, reject) => {
+                        if (typeof value !== 'string') {
+                            reject('value must be a string');
+                            return;
+                        }
+
+                        this.settings.picture.mode.get().then((settings) => {
+                            let pictureMode = settings.ITEMS.find(i => i.CNAME === 'picture_mode');
+                            if (!pictureMode) {
+                                reject('could not get picture mode settings');
+                                return;
+                            }
+
+                            let pictureModeValue = pictureMode.ELEMENTS.find(i => i === value);
+                            if (!pictureModeValue) {
+                                reject('value out of range');
+                                return;
+                            }
+                            
+                            let data = {
+                                REQUEST: 'MODIFY',
+                                HASHVAL: pictureMode.HASHVAL,
+                                VALUE: pictureModeValue
+                            };
+                            sendRequest('put', host + '/menu_native/dynamic/tv_settings/picture/picture_mode', _authKey, data).then(resolve).catch(reject);
+                        }).catch(reject);
+                    });
+                }
+            },
             modeEdit: {
                 get: () => {
                     return sendRequest('get', host + '/menu_native/dynamic/tv_settings/picture/picture_mode_edit', _authKey);
@@ -353,6 +387,113 @@ let SMARTCAST = function smartcast(host, authKey) {
         timers: {
             get: () => {
                 return sendRequest('get', host + '/menu_native/dynamic/tv_settings/timers', _authKey);
+            },
+            autoPowerOffTimer: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/timers/auto_power_off_timer', _authKey);
+                },
+                set: (value) => {
+                    return new Promise((resolve, reject) => {
+                        let powerOffValues = [
+                            { index: 0, value: '10 minutes'}, 
+                            { index: 1, value: 'Off'}
+                        ];
+                        
+                        // Accept any value that matches the integer index or string value
+                        if (powerOffValues.find(t => t.value === value || t.index === value) === undefined) {
+                            reject('value out of range');
+                            return;
+                        }
+                        
+                        // Transform an integer index to its string value
+                        if (typeof value === 'number') {
+                            value = powerOffValues.find(t => t.index === value).value;
+                        }
+
+                        this.settings.timers.autoPowerOffTimer.get().then((response) => {
+                            let autoPowerOffTimer = response.ITEMS.find(i => i.CNAME === 'auto_power_off_timer');
+                            
+                            if (!autoPowerOffTimer) {
+                                reject('could not get auto power off timer settings');
+                                return;
+                            }
+                            
+                            let data = {
+                                REQUEST: 'MODIFY',
+                                HASHVAL: autoPowerOffTimer.HASHVAL,
+                                VALUE: value
+                            };
+                            sendRequest('put', host + '/menu_native/dynamic/tv_settings/timers/auto_power_off_timer', _authKey, data).then(resolve).catch(reject);
+                        }).catch(reject);
+                    });
+                }
+            },
+            sleepTimer: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/timers/sleep_timer', _authKey);
+                },
+                set: (value) => {
+                    return new Promise((resolve, reject) => {
+                        let timerValues = [
+                            { index: 0, value: 'Off'}, 
+                            { index: 1, value: '30 minutes'}, 
+                            { index: 2, value: '60 minutes'}, 
+                            { index: 3, value: '90 minutes'}, 
+                            { index: 4, value: '120 minutes'}, 
+                            { index: 5, value: '180 minutes'}
+                        ];
+                        
+                        // Accept any value that matches the integer index or string value
+                        if (timerValues.find(t => t.value === value || t.index === value) === undefined) {
+                            reject('value out of range');
+                            return;
+                        }
+                        
+                        // Transform an integer index to its string value
+                        if (typeof value === 'number') {
+                            value = timerValues.find(t => t.index === value).value;
+                        }
+
+                        this.settings.timers.sleepTimer.get().then((response) => {
+                            let sleepTimer = response.ITEMS.find(i => i.CNAME === 'sleep_timer');
+                            
+                            if (!sleepTimer) {
+                                reject('could not get picture mode settings');
+                                return;
+                            }
+                            
+                            let data = {
+                                REQUEST: 'MODIFY',
+                                HASHVAL: sleepTimer.HASHVAL,
+                                VALUE: value
+                            };
+                            sendRequest('put', host + '/menu_native/dynamic/tv_settings/timers/sleep_timer', _authKey, data).then(resolve).catch(reject);
+                        }).catch(reject);
+                    });
+                }
+            },
+            blankScreen: {
+                get: () => {
+                    return sendRequest('get', host + '/menu_native/dynamic/tv_settings/timers/blank_screen', _authKey);
+                },
+                execute: () => {
+                    return new Promise((resolve, reject) => {
+                        this.settings.timers.blankScreen.get().then((response) => {
+                            let blankScreen = response.ITEMS.find(x => x.CNAME === "blank_screen");
+                            if (!blankScreen) {
+                                reject('Unable to get blank_screen');
+                                return;
+                            }
+
+                            let data = {
+                                REQUEST: 'MODIFY',
+                                HASHVAL: blankScreen.HASHVAL,
+                                VALUE: 'T_ACTION_V1' // Any string value would suffice
+                            };
+                            sendRequest('put', host + '/menu_native/dynamic/tv_settings/timers/blank_screen', _authKey, data).then(resolve).catch(reject)
+                        }).catch(reject);
+                    });
+                }
             }
         },
         network: {
