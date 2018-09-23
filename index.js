@@ -193,6 +193,11 @@ let SMARTCAST = function smartcast(host, authKey) {
             up: () => {
                 return this.control.keyCommand(5, 1);
             },
+            get: () => {
+                return new Promise((resolve) => {
+                    sendRequest('get', host + '/menu_native/dynamic/tv_settings/audio/volume', _authKey).then(resolve)
+                });
+            },
             set: (value) => {
                 return new Promise((resolve, reject) => {
                     if (typeof value !== 'number') {
@@ -215,6 +220,11 @@ let SMARTCAST = function smartcast(host, authKey) {
                         };
                         sendRequest('put', host + '/menu_native/dynamic/tv_settings/audio/volume', _authKey, data).then(resolve).catch(reject)
                     }).catch(reject);
+                });
+            },
+            getMuteState: () => {
+                return new Promise((resolve) => {
+                    sendRequest('get', host + '/menu_native/dynamic/tv_settings/audio/mute', _authKey).then(resolve)
                 });
             },
             unmute: () => {
