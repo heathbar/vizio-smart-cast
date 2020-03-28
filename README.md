@@ -1382,6 +1382,24 @@ let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
 tv.settings.cast.get().then(data => console.log(data));
 ```
 
+
+### `app.launch(app, [app_id, [name_space]])`
+
+Launch a vizio app via URL or using App ID (See https://github.com/exiva/Vizio_SmartCast_API#app-ids)
+
+#### Returns
+
+*(`Promise`)*: A promise of the http response from the smartcast device
+
+#### Example
+
+```js
+let smartcast = require('vizio-smart-cast');
+let tv = new smartcast('192.168.0.101', 'xAuthTokenx');
+
+tv.app.launch('http://demo.example.com/vizio.html').then(data => console.log(data));
+```
+
 ## Tests
 
 npm test

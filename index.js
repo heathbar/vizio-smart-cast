@@ -567,6 +567,32 @@ let SMARTCAST = function smartcast(host, authKey) {
             }
         }
    };
+
+   this.app = {
+        /**
+         * Launch a specific app on the smartcast device. See https://github.com/exiva/Vizio_SmartCast_API#app-ids
+         * @param {string} app URL or ID of the app to cast.
+         * @param {string} app_id Defaults to 17 same as app id to test content change api
+         * @param {int} name_space Defaults to 4 for app launching via smartcast api
+         * @return {promise}
+         */
+        launch: (app, app_id = '17', name_space = 4) => {
+            let data = {
+                VALUE: {
+                    MESSAGE: app,
+                    NAME_SPACE: name_space,
+                    APP_ID: app_id
+                }
+            };
+            return sendRequest('put', host + '/app/launch', _authKey, data).then((data) => {
+                if (data && data.STATUS && data.STATUS.RESULT === 'SUCCESS') {
+                    return data;
+                } else {
+                    return Promise.reject(data);
+                }
+            });
+        }
+    };
 };
 
 SMARTCAST.discover = (success, error, timeout) => {
