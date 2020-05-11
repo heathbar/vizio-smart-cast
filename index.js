@@ -285,7 +285,7 @@ let SMARTCAST = function smartcast(host, authKey) {
         },
         navigate: {
             up: () => {
-                return this.control.keyCommand(3, 3);
+                return this.control.keyCommand(3, 8);
             },
             down: () => {
                 return this.control.keyCommand(3, 0);
@@ -294,7 +294,7 @@ let SMARTCAST = function smartcast(host, authKey) {
                 return this.control.keyCommand(3, 1);
             },
             right: () => {
-                return this.control.keyCommand(3, 5);
+                return this.control.keyCommand(3, 7);
             },
             ok: () => {
                 return this.control.keyCommand(3, 2);
