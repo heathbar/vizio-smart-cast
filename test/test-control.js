@@ -274,7 +274,7 @@ describe('#smart-cast-control-tests', () => {
         expect(request.put.called).to.be.true;
         expect(request.put.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/key_command/');
         expect(request.put.firstCall.args[0].body.KEYLIST[0].CODESET).to.equal(3);
-        expect(request.put.firstCall.args[0].body.KEYLIST[0].CODE).to.equal(3);
+        expect(request.put.firstCall.args[0].body.KEYLIST[0].CODE).to.equal(8);
     });
 
     it('Navigate down should call api', () => {
@@ -301,7 +301,7 @@ describe('#smart-cast-control-tests', () => {
         expect(request.put.called).to.be.true;
         expect(request.put.firstCall.args[0].url).to.equal('https://0.0.0.0:7345/key_command/');
         expect(request.put.firstCall.args[0].body.KEYLIST[0].CODESET).to.equal(3);
-        expect(request.put.firstCall.args[0].body.KEYLIST[0].CODE).to.equal(5);
+        expect(request.put.firstCall.args[0].body.KEYLIST[0].CODE).to.equal(7);
     });
 
     it('Navigate ok should call api', () => {
