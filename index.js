@@ -114,12 +114,12 @@ let SMARTCAST = function smartcast(host, authKey) {
          * @param {string} pin The PIN displayed on the smartcast device
          * @return {Observable}
          */
-        pair: (pin) => {
+        pair: (pin, deviceId, pairingRequestToken) => {
             let data = {
-                DEVICE_ID: _deviceId,
+                DEVICE_ID: deviceId || _deviceId,
                 CHALLENGE_TYPE: 1,
                 RESPONSE_VALUE: pin,
-                PAIRING_REQ_TOKEN: _pairingRequestToken
+                PAIRING_REQ_TOKEN: pairingRequestToken || _pairingRequestToken
             };
             return sendRequest('put', host + '/pairing/pair', null, data).then((data) => {
                 if (data && data.STATUS.RESULT === 'SUCCESS') {
