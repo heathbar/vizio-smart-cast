@@ -7,6 +7,8 @@ let request = require('request-promise-native'),
 let sendRequest = (method, url, authKey, data) => {
     let req = {
         url: url,
+        strictSSL: false,
+        secureProtocol: 'TLSv1_method',
         json: true,
         rejectUnauthorized: false,
         body: data
